@@ -1,0 +1,10 @@
+D:\C#\DOANCUOIKI_C_Sharp\CARO\bin\Debug\CARO.exe.config
+D:\C#\DOANCUOIKI_C_Sharp\CARO\bin\Debug\CARO.exe
+D:\C#\DOANCUOIKI_C_Sharp\CARO\bin\Debug\CARO.pdb
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.csprojAssemblyReference.cache
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.CaroDisplay.resources
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.Properties.Resources.resources
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.csproj.GenerateResource.cache
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.exe
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.pdb
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.About.resources
