@@ -119,8 +119,7 @@ namespace CARO
                 return;
             }
 
-            btn.Text = Player[ChangePlayer].Symboy;
-            change_player(btn);
+            btn.Text = Player[ChangePlayer].Symboy;          
 
             if (Player[ChangePlayer].Symboy == "X")
             {
@@ -156,7 +155,7 @@ namespace CARO
             }
 
             btn.Text = Player[ChangePlayer].Symboy;
-            change_player(btn);
+           
             if (Player[ChangePlayer].Symboy == "X")
             {
                 btn.ForeColor = Color.Red;
@@ -172,12 +171,7 @@ namespace CARO
                 EndGame();
             }
         }
-        void change_player(Button btn)
-        {          
-
-            
-            
-        }
+        
 
         public void EndGame()
         {

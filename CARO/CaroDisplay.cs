@@ -40,24 +40,19 @@ namespace CARO
 
         private void CaroDisplay_Load(object sender, EventArgs e)
         {
-            player0_image.Image = ChessBoard.Player[0].Avata;
-            player0_name.Text = ChessBoard.Player[0].Name;
-            player0_symboy.Text = ChessBoard.Player[0].Symboy;
+            //player0_image.Image = ChessBoard.Player[0].Avata;
+            //player0_name.Text = ChessBoard.Player[0].Name;
+            //player0_symboy.Text = ChessBoard.Player[0].Symboy;
 
-            player1_image.Image = ChessBoard.Player[1].Avata;
-            player1_name.Text = ChessBoard.Player[1].Name;
-            player1_symboy.Text = ChessBoard.Player[1].Symboy;
+            //player1_image.Image = ChessBoard.Player[1].Avata;
+            //player1_name.Text = ChessBoard.Player[1].Name;
+            //player1_symboy.Text = ChessBoard.Player[1].Symboy;
 
-            ListServe();
+            
            
         }
 
-        void ListServe()
-        {
-            sv.Rows.Add("19522174", "195.168.1.5");
-            sv.Rows.Add("12345678", "192.168.1.6");
-
-        }
+        
         void NewGame()
         {
             foreach (Control Button in chessboard_pnl.Controls)
@@ -100,16 +95,11 @@ namespace CARO
             }
        
         }
-        void Quit()
-        {
-            
-        }
-
+       
         private void ChessBoard_Player_Click(object sender, ChessClickEvent e)
         {
             this.Invoke((MethodInvoker)(() =>
             {
-                //chessboard_pnl.Enabled = false;
                 progressBar_left.Value = 0;
                 progressBar_right.Value = 0;
                 timer_play.Start();
@@ -136,7 +126,8 @@ namespace CARO
             
             try
             {
-                socket.Send(new DataTrans((int)SocketCommand.END_GAME, "", new Point()));
+                socket.Send(new DataTrans((int)SocketCommand.END_GAME, "kết thúc", new Point()));
+                Listen();
             }
             catch
             {
@@ -193,26 +184,7 @@ namespace CARO
             
 
         }
-
-        //private void fight_btn_Click(object sender, EventArgs e)
-        //{
-        //    foreach (Control Button in chessboard_pnl.Controls)
-        //    {
-        //        Button.Text = "";
-        //    }
-
-        //    progressBar_left.Value = 0;
-        //    progressBar_right.Value = 0;
-   
-        //}
-
        
-
-        private void gg_btn_Click(object sender, EventArgs e)
-        {
-            //alert_wl.Text = ChessBoard.Player[ChessBoard.ChangePlayer].Name.ToString() + " GG";
-            //WinLose_pnl.Visible = true;
-        }
 
         private void close_game(object sender, FormClosingEventArgs e)
         {
@@ -263,14 +235,28 @@ namespace CARO
 
             progressBar_left.Value = 0;
             progressBar_right.Value = 0;
-           
+
+            out_room_btn.Visible = false;
+            maphong.Visible = false;
+            label_maphong.Visible = false;
+
         }
 
         private void option_btn_Click(object sender, EventArgs e)
         {
-            Option_pnl.Visible = true;
+            Option_pnl.Visible = Option_pnl.Visible == true ? false : true;
         }
-
+        private void out_room_btn_VisibleChanged(object sender, EventArgs e)
+        {
+            if (out_room_btn.Visible == false)
+            {
+                control_pnl.Visible = true;
+            }
+            else
+            {
+                control_pnl.Visible = false;
+            }
+        }
         private void regime_chose(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -279,63 +265,108 @@ namespace CARO
                 person.BackColor = Color.LimeGreen;
                 computer.BackColor = Color.Red;
 
-                maphong.Visible = true;
-                label_maphong.Visible = true;
+                search_btn.Visible = true;
+                search_roomid.Visible = true;
+                addRoom_btn.Visible = true;
             }
             else
             {
                 person.BackColor = Color.Red;
                 computer.BackColor = Color.LimeGreen;
-
-                maphong.Visible = false;
-                label_maphong.Visible = false;              
+            
+                search_btn.Visible = false;
+                search_roomid.Visible = false;
+                addRoom_btn.Visible = false;
             }
         }
         private void CaroDisplay_Shown(object sender, EventArgs e)
         {
             maphong.Tag = socket.GetLocalIPv4(NetworkInterfaceType.Wireless80211).ToString();
+            maphong.Text = IPtoRoomID(maphong.Tag.ToString());
             if (string.IsNullOrEmpty(maphong.Tag.ToString()))
             {
                 maphong.Tag = socket.GetLocalIPv4(NetworkInterfaceType.Ethernet);
 
             }
-            //DataRow[] dt = sv.Select("MaPhong= '" + maphong.Text + "'");
-            //maphong.Tag = dt[0]["Address"].ToString();
+          
         }
         private void save_option_btn_Click(object sender, EventArgs e)
         {
-            Option_pnl.Visible = false;
-            if (person.BackColor == Color.LimeGreen) 
+            Option_pnl.Visible = false;     
+        }
+
+        private void addRoom_btn_Click(object sender, EventArgs e)
+        {          
+
+            socket.IP = maphong.Tag.ToString();
+
+            if (!socket.ConnectServe())
             {
-                socket.IP = maphong.Tag.ToString();
+                socket.CrateServe();
+            }
+
+           
+            out_room_btn.Visible = true;
+            maphong.Visible = true;
+            label_maphong.Visible = true;
+            Option_pnl.Visible = false;
+        }
+        private void search_roomid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                search_button_Click(sender, e);
+            }
+        }
+        private void search_button_Click(object sender, EventArgs e)
+        {
+            if(search_roomid.Text.Length == 8)
+            {
+                string ip = RoomIDtoIP(search_roomid.Text);
+
+                socket.IP = ip.ToString();
 
                 if (!socket.ConnectServe())
                 {
-                    socket.CrateServe();
+                    MessageBox.Show("Phòng Không Tồn Tại\nMời nhập lại!", "Thông Báo", MessageBoxButtons.OK);
+                    search_roomid.Focus();
                 }
                 else
                 {
-                    MessageBox.Show("đã vào phòng");
-                    try
-                    {                      
-                        socket.Send(new DataTrans((int)SocketCommand.NOTIFY, "kêt noi thanh công", new Point()));
-                        Listen();
-                    }
-                    catch
-                    {
+                    MessageBox.Show("Đã vào phòng thành công");
+                    Listen();
 
-                    }
-                    
-                    //đợi người chơi vào phòng 19522174
+                    out_room_btn.Visible = true;                  
+                    maphong.Visible = true;
+                    label_maphong.Visible = true;
+                    Option_pnl.Visible = false;
+
                 }
+                
             }
             else
             {
-               
+                MessageBox.Show("Mã phòng không hợp lệ\nVui lòng nhập lại!", "Thông báo", MessageBoxButtons.OK);
+                search_roomid.Focus();
             }
             
-
         }
+        public string RoomIDtoIP(string roomid)
+        {
+            string str1 = roomid.Substring(0, 3);
+            string str2 = roomid.Substring(3, 3);
+            string str3 = roomid.Substring(6, 1);
+            string str4 = roomid.Substring(7, 1);
+
+            string ip = str1 + "." + str2 + "." + str3 + "." + str4;
+            return ip;
+        }
+        public string IPtoRoomID(string ip)
+        {
+            string roomid = ip.Replace(".", "");
+            return roomid;
+        }
+
         void Listen()  
         {
             Thread listenThread = new Thread(() =>
@@ -359,14 +390,13 @@ namespace CARO
             switch(data.Command)
             {
                 case (int)SocketCommand.NOTIFY:
-                    MessageBox.Show("ket noi");
+                    MessageBox.Show(data.Message);
                     break;
                 case (int)SocketCommand.POINT_TRANS:
                     this.Invoke((MethodInvoker)(() =>
                     {
                         ChessBoard.SendChess(data.Point);
-                        timer_play.Start();
-                        chessboard_pnl.Enabled = true;
+                        timer_play.Start();                        
                     }));                   
                     break;
                 case (int)SocketCommand.NEW_GAME:
@@ -391,6 +421,10 @@ namespace CARO
             Listen();
         }
 
-        
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About ab = new About();
+            ab.Show();
+        }
     }
 }

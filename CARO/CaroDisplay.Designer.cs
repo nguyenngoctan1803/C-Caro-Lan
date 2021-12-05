@@ -31,15 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.chessboard_pnl = new System.Windows.Forms.Panel();
             this.Option_pnl = new System.Windows.Forms.Panel();
-            this.nhac = new System.Windows.Forms.CheckBox();
-            this.amthanh = new System.Windows.Forms.CheckBox();
+            this.addRoom_btn = new System.Windows.Forms.Button();
+            this.search_btn = new System.Windows.Forms.Button();
+            this.search_roomid = new System.Windows.Forms.TextBox();
             this.save_option_btn = new System.Windows.Forms.Button();
             this.computer = new System.Windows.Forms.Button();
             this.person = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.undo_btn = new System.Windows.Forms.Button();
-            this.rule_btn = new System.Windows.Forms.Button();
-            this.option_btn = new System.Windows.Forms.Button();
             this.player0_image = new System.Windows.Forms.PictureBox();
             this.player0_symboy = new System.Windows.Forms.Label();
             this.player1_symboy = new System.Windows.Forms.Label();
@@ -48,23 +46,36 @@
             this.progressBar_left = new System.Windows.Forms.ProgressBar();
             this.progressBar_right = new System.Windows.Forms.ProgressBar();
             this.timer_play = new System.Windows.Forms.Timer(this.components);
-            this.gg_btn = new System.Windows.Forms.Button();
             this.out_room_btn = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.label_maphong = new System.Windows.Forms.Label();
             this.maphong = new System.Windows.Forms.Label();
             this.player1_image = new System.Windows.Forms.PictureBox();
+            this.control_pnl = new System.Windows.Forms.Panel();
+            this.rule_btn = new System.Windows.Forms.Button();
+            this.undo_btn = new System.Windows.Forms.Button();
+            this.option_btn = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ruleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rank_btn = new System.Windows.Forms.Button();
             this.chessboard_pnl.SuspendLayout();
             this.Option_pnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player0_image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1_image)).BeginInit();
+            this.control_pnl.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // chessboard_pnl
             // 
             this.chessboard_pnl.BackColor = System.Drawing.Color.Black;
             this.chessboard_pnl.Controls.Add(this.Option_pnl);
-            this.chessboard_pnl.Location = new System.Drawing.Point(302, 12);
+            this.chessboard_pnl.Location = new System.Drawing.Point(304, 12);
             this.chessboard_pnl.Name = "chessboard_pnl";
             this.chessboard_pnl.Size = new System.Drawing.Size(812, 749);
             this.chessboard_pnl.TabIndex = 0;
@@ -72,52 +83,66 @@
             // Option_pnl
             // 
             this.Option_pnl.BackColor = System.Drawing.Color.DarkOrange;
-            this.Option_pnl.Controls.Add(this.nhac);
-            this.Option_pnl.Controls.Add(this.amthanh);
+            this.Option_pnl.Controls.Add(this.addRoom_btn);
+            this.Option_pnl.Controls.Add(this.search_btn);
+            this.Option_pnl.Controls.Add(this.search_roomid);
             this.Option_pnl.Controls.Add(this.save_option_btn);
             this.Option_pnl.Controls.Add(this.computer);
             this.Option_pnl.Controls.Add(this.person);
             this.Option_pnl.Controls.Add(this.label8);
             this.Option_pnl.Location = new System.Drawing.Point(121, 202);
             this.Option_pnl.Name = "Option_pnl";
-            this.Option_pnl.Size = new System.Drawing.Size(576, 417);
+            this.Option_pnl.Size = new System.Drawing.Size(576, 300);
             this.Option_pnl.TabIndex = 1;
             this.Option_pnl.Visible = false;
             // 
-            // nhac
+            // addRoom_btn
             // 
-            this.nhac.AutoSize = true;
-            this.nhac.Checked = true;
-            this.nhac.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.nhac.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nhac.Location = new System.Drawing.Point(343, 232);
-            this.nhac.Name = "nhac";
-            this.nhac.Size = new System.Drawing.Size(80, 32);
-            this.nhac.TabIndex = 4;
-            this.nhac.Text = "Nhạc";
-            this.nhac.UseVisualStyleBackColor = true;
+            this.addRoom_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addRoom_btn.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.addRoom_btn.Location = new System.Drawing.Point(215, 220);
+            this.addRoom_btn.Name = "addRoom_btn";
+            this.addRoom_btn.Size = new System.Drawing.Size(149, 39);
+            this.addRoom_btn.TabIndex = 7;
+            this.addRoom_btn.Text = "Tạo Phòng";
+            this.addRoom_btn.UseVisualStyleBackColor = true;
+            this.addRoom_btn.Visible = false;
+            this.addRoom_btn.Click += new System.EventHandler(this.addRoom_btn_Click);
             // 
-            // amthanh
+            // search_btn
             // 
-            this.amthanh.AutoSize = true;
-            this.amthanh.Checked = true;
-            this.amthanh.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.amthanh.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.amthanh.Location = new System.Drawing.Point(151, 232);
-            this.amthanh.Name = "amthanh";
-            this.amthanh.Size = new System.Drawing.Size(124, 32);
-            this.amthanh.TabIndex = 4;
-            this.amthanh.Text = "Âm thanh";
-            this.amthanh.UseVisualStyleBackColor = true;
+            this.search_btn.BackgroundImage = global::CARO.Properties.Resources.search;
+            this.search_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.search_btn.FlatAppearance.BorderSize = 0;
+            this.search_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.search_btn.Location = new System.Drawing.Point(152, 169);
+            this.search_btn.Name = "search_btn";
+            this.search_btn.Size = new System.Drawing.Size(46, 38);
+            this.search_btn.TabIndex = 6;
+            this.search_btn.UseVisualStyleBackColor = true;
+            this.search_btn.Visible = false;
+            this.search_btn.Click += new System.EventHandler(this.search_button_Click);
+            // 
+            // search_roomid
+            // 
+            this.search_roomid.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.search_roomid.Location = new System.Drawing.Point(204, 172);
+            this.search_roomid.Multiline = true;
+            this.search_roomid.Name = "search_roomid";
+            this.search_roomid.Size = new System.Drawing.Size(169, 27);
+            this.search_roomid.TabIndex = 5;
+            this.search_roomid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.search_roomid.Visible = false;
+            this.search_roomid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.search_roomid_KeyDown);
             // 
             // save_option_btn
             // 
             this.save_option_btn.BackColor = System.Drawing.Color.White;
             this.save_option_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.save_option_btn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.save_option_btn.Location = new System.Drawing.Point(221, 340);
+            this.save_option_btn.Location = new System.Drawing.Point(215, 221);
             this.save_option_btn.Name = "save_option_btn";
-            this.save_option_btn.Size = new System.Drawing.Size(144, 38);
+            this.save_option_btn.Size = new System.Drawing.Size(149, 38);
             this.save_option_btn.TabIndex = 3;
             this.save_option_btn.Text = "OK";
             this.save_option_btn.UseVisualStyleBackColor = false;
@@ -125,7 +150,7 @@
             // 
             // computer
             // 
-            this.computer.BackColor = System.Drawing.Color.Red;
+            this.computer.BackColor = System.Drawing.Color.LimeGreen;
             this.computer.FlatAppearance.BorderSize = 2;
             this.computer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.computer.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -139,7 +164,7 @@
             // 
             // person
             // 
-            this.person.BackColor = System.Drawing.Color.LimeGreen;
+            this.person.BackColor = System.Drawing.Color.Red;
             this.person.FlatAppearance.BorderSize = 2;
             this.person.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.person.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -160,48 +185,6 @@
             this.label8.Size = new System.Drawing.Size(119, 41);
             this.label8.TabIndex = 0;
             this.label8.Text = "Chế Độ";
-            // 
-            // undo_btn
-            // 
-            this.undo_btn.BackColor = System.Drawing.Color.Transparent;
-            this.undo_btn.BackgroundImage = global::CARO.Properties.Resources.undo;
-            this.undo_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.undo_btn.FlatAppearance.BorderSize = 0;
-            this.undo_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.undo_btn.Location = new System.Drawing.Point(545, 778);
-            this.undo_btn.Name = "undo_btn";
-            this.undo_btn.Size = new System.Drawing.Size(88, 64);
-            this.undo_btn.TabIndex = 1;
-            this.undo_btn.UseVisualStyleBackColor = false;
-            // 
-            // rule_btn
-            // 
-            this.rule_btn.BackColor = System.Drawing.Color.Transparent;
-            this.rule_btn.BackgroundImage = global::CARO.Properties.Resources.question;
-            this.rule_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.rule_btn.FlatAppearance.BorderSize = 0;
-            this.rule_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rule_btn.Font = new System.Drawing.Font("Forte", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rule_btn.ForeColor = System.Drawing.Color.Black;
-            this.rule_btn.Location = new System.Drawing.Point(799, 778);
-            this.rule_btn.Name = "rule_btn";
-            this.rule_btn.Size = new System.Drawing.Size(87, 64);
-            this.rule_btn.TabIndex = 1;
-            this.rule_btn.UseVisualStyleBackColor = false;
-            // 
-            // option_btn
-            // 
-            this.option_btn.BackColor = System.Drawing.Color.Transparent;
-            this.option_btn.BackgroundImage = global::CARO.Properties.Resources.option;
-            this.option_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.option_btn.FlatAppearance.BorderSize = 0;
-            this.option_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.option_btn.Location = new System.Drawing.Point(672, 778);
-            this.option_btn.Name = "option_btn";
-            this.option_btn.Size = new System.Drawing.Size(88, 64);
-            this.option_btn.TabIndex = 1;
-            this.option_btn.UseVisualStyleBackColor = false;
-            this.option_btn.Click += new System.EventHandler(this.option_btn_Click);
             // 
             // player0_image
             // 
@@ -281,66 +264,46 @@
             // 
             this.timer_play.Tick += new System.EventHandler(this.timer_play_Tick);
             // 
-            // gg_btn
-            // 
-            this.gg_btn.BackColor = System.Drawing.Color.Transparent;
-            this.gg_btn.BackgroundImage = global::CARO.Properties.Resources.white_flag;
-            this.gg_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.gg_btn.FlatAppearance.BorderSize = 0;
-            this.gg_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gg_btn.Location = new System.Drawing.Point(100, 541);
-            this.gg_btn.Name = "gg_btn";
-            this.gg_btn.Size = new System.Drawing.Size(105, 120);
-            this.gg_btn.TabIndex = 7;
-            this.gg_btn.UseVisualStyleBackColor = false;
-            this.gg_btn.Click += new System.EventHandler(this.gg_btn_Click);
-            // 
             // out_room_btn
             // 
-            this.out_room_btn.BackColor = System.Drawing.Color.White;
+            this.out_room_btn.BackColor = System.Drawing.Color.Transparent;
             this.out_room_btn.BackgroundImage = global::CARO.Properties.Resources.log_out;
             this.out_room_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.out_room_btn.Location = new System.Drawing.Point(1340, 787);
+            this.out_room_btn.FlatAppearance.BorderSize = 0;
+            this.out_room_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.out_room_btn.Location = new System.Drawing.Point(1340, 777);
             this.out_room_btn.Name = "out_room_btn";
-            this.out_room_btn.Size = new System.Drawing.Size(67, 55);
+            this.out_room_btn.Size = new System.Drawing.Size(67, 64);
             this.out_room_btn.TabIndex = 8;
             this.out_room_btn.UseVisualStyleBackColor = false;
+            this.out_room_btn.Visible = false;
+            this.out_room_btn.VisibleChanged += new System.EventHandler(this.out_room_btn_VisibleChanged);
             this.out_room_btn.Click += new System.EventHandler(this.exit_game);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(1346, 764);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 23);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Thoát";
             // 
             // label_maphong
             // 
             this.label_maphong.AutoSize = true;
             this.label_maphong.BackColor = System.Drawing.Color.Transparent;
             this.label_maphong.Font = new System.Drawing.Font("Segoe UI", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label_maphong.Location = new System.Drawing.Point(1035, 794);
+            this.label_maphong.Location = new System.Drawing.Point(1035, 793);
             this.label_maphong.Name = "label_maphong";
             this.label_maphong.Size = new System.Drawing.Size(135, 32);
             this.label_maphong.TabIndex = 10;
             this.label_maphong.Text = "Mã Phòng:";
+            this.label_maphong.Visible = false;
             // 
             // maphong
             // 
             this.maphong.AutoSize = true;
             this.maphong.BackColor = System.Drawing.Color.Transparent;
             this.maphong.Font = new System.Drawing.Font("Segoe UI", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.maphong.Location = new System.Drawing.Point(1180, 794);
+            this.maphong.Location = new System.Drawing.Point(1180, 793);
             this.maphong.Name = "maphong";
             this.maphong.Size = new System.Drawing.Size(127, 32);
             this.maphong.TabIndex = 10;
             this.maphong.Tag = "ipv4";
             this.maphong.Text = "19522174";
+            this.maphong.Visible = false;
             // 
             // player1_image
             // 
@@ -352,6 +315,139 @@
             this.player1_image.TabIndex = 2;
             this.player1_image.TabStop = false;
             // 
+            // control_pnl
+            // 
+            this.control_pnl.BackColor = System.Drawing.Color.Transparent;
+            this.control_pnl.Controls.Add(this.rule_btn);
+            this.control_pnl.Controls.Add(this.undo_btn);
+            this.control_pnl.Controls.Add(this.option_btn);
+            this.control_pnl.Location = new System.Drawing.Point(530, 768);
+            this.control_pnl.Name = "control_pnl";
+            this.control_pnl.Size = new System.Drawing.Size(366, 73);
+            this.control_pnl.TabIndex = 11;
+            // 
+            // rule_btn
+            // 
+            this.rule_btn.BackColor = System.Drawing.Color.Transparent;
+            this.rule_btn.BackgroundImage = global::CARO.Properties.Resources.question;
+            this.rule_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.rule_btn.FlatAppearance.BorderSize = 0;
+            this.rule_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rule_btn.Font = new System.Drawing.Font("Forte", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rule_btn.ForeColor = System.Drawing.Color.Black;
+            this.rule_btn.Location = new System.Drawing.Point(277, 16);
+            this.rule_btn.Name = "rule_btn";
+            this.rule_btn.Size = new System.Drawing.Size(63, 50);
+            this.rule_btn.TabIndex = 2;
+            this.rule_btn.UseVisualStyleBackColor = false;
+            // 
+            // undo_btn
+            // 
+            this.undo_btn.BackColor = System.Drawing.Color.Transparent;
+            this.undo_btn.BackgroundImage = global::CARO.Properties.Resources.undo;
+            this.undo_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.undo_btn.FlatAppearance.BorderSize = 0;
+            this.undo_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.undo_btn.Location = new System.Drawing.Point(23, 16);
+            this.undo_btn.Name = "undo_btn";
+            this.undo_btn.Size = new System.Drawing.Size(64, 50);
+            this.undo_btn.TabIndex = 3;
+            this.undo_btn.UseVisualStyleBackColor = false;
+            // 
+            // option_btn
+            // 
+            this.option_btn.BackColor = System.Drawing.Color.Transparent;
+            this.option_btn.BackgroundImage = global::CARO.Properties.Resources.option;
+            this.option_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.option_btn.FlatAppearance.BorderSize = 0;
+            this.option_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.option_btn.Location = new System.Drawing.Point(150, 16);
+            this.option_btn.Name = "option_btn";
+            this.option_btn.Size = new System.Drawing.Size(64, 50);
+            this.option_btn.TabIndex = 4;
+            this.option_btn.UseVisualStyleBackColor = false;
+            this.option_btn.Click += new System.EventHandler(this.option_btn_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1419, 31);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 27);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem1,
+            this.ruleToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(60, 27);
+            this.aboutToolStripMenuItem.Text = "Help";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(141, 28);
+            this.aboutToolStripMenuItem1.Text = "About";
+            // 
+            // ruleToolStripMenuItem
+            // 
+            this.ruleToolStripMenuItem.Name = "ruleToolStripMenuItem";
+            this.ruleToolStripMenuItem.Size = new System.Drawing.Size(141, 28);
+            this.ruleToolStripMenuItem.Text = "Rule";
+            // 
+            // rank_btn
+            // 
+            this.rank_btn.BackColor = System.Drawing.Color.Transparent;
+            this.rank_btn.BackgroundImage = global::CARO.Properties.Resources.star;
+            this.rank_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.rank_btn.FlatAppearance.BorderSize = 0;
+            this.rank_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rank_btn.Location = new System.Drawing.Point(95, 82);
+            this.rank_btn.Name = "rank_btn";
+            this.rank_btn.Size = new System.Drawing.Size(116, 84);
+            this.rank_btn.TabIndex = 13;
+            this.rank_btn.UseVisualStyleBackColor = false;
+            // 
             // CaroDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -359,11 +455,11 @@
             this.BackgroundImage = global::CARO.Properties.Resources._3;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1419, 853);
+            this.Controls.Add(this.rank_btn);
+            this.Controls.Add(this.control_pnl);
             this.Controls.Add(this.maphong);
             this.Controls.Add(this.label_maphong);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.out_room_btn);
-            this.Controls.Add(this.gg_btn);
             this.Controls.Add(this.progressBar_right);
             this.Controls.Add(this.progressBar_left);
             this.Controls.Add(this.player1_name);
@@ -372,16 +468,14 @@
             this.Controls.Add(this.player0_symboy);
             this.Controls.Add(this.player1_image);
             this.Controls.Add(this.player0_image);
-            this.Controls.Add(this.rule_btn);
-            this.Controls.Add(this.undo_btn);
-            this.Controls.Add(this.option_btn);
             this.Controls.Add(this.chessboard_pnl);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximumSize = new System.Drawing.Size(1437, 900);
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1437, 900);
             this.Name = "CaroDisplay";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Caro";
             this.TransparencyKey = System.Drawing.Color.DarkRed;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.close_game);
             this.Load += new System.EventHandler(this.CaroDisplay_Load);
@@ -391,6 +485,9 @@
             this.Option_pnl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player0_image)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1_image)).EndInit();
+            this.control_pnl.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -399,9 +496,6 @@
         #endregion
 
         private System.Windows.Forms.Panel chessboard_pnl;
-        private System.Windows.Forms.Button option_btn;
-        private System.Windows.Forms.Button undo_btn;
-        private System.Windows.Forms.Button rule_btn;
         private System.Windows.Forms.PictureBox player0_image;
         private System.Windows.Forms.Label player0_symboy;
         private System.Windows.Forms.Label player1_symboy;
@@ -410,19 +504,31 @@
         private System.Windows.Forms.ProgressBar progressBar_left;
         private System.Windows.Forms.ProgressBar progressBar_right;
         private System.Windows.Forms.Timer timer_play;
-        private System.Windows.Forms.Button gg_btn;
         private System.Windows.Forms.Button out_room_btn;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel Option_pnl;
         private System.Windows.Forms.Button computer;
         private System.Windows.Forms.Button person;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button save_option_btn;
-        private System.Windows.Forms.CheckBox nhac;
-        private System.Windows.Forms.CheckBox amthanh;
         private System.Windows.Forms.Label label_maphong;
         private System.Windows.Forms.Label maphong;
         private System.Windows.Forms.PictureBox player1_image;
+        private System.Windows.Forms.Button search_btn;
+        private System.Windows.Forms.TextBox search_roomid;
+        private System.Windows.Forms.Button addRoom_btn;
+        private System.Windows.Forms.Panel control_pnl;
+        private System.Windows.Forms.Button rule_btn;
+        private System.Windows.Forms.Button undo_btn;
+        private System.Windows.Forms.Button option_btn;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ruleToolStripMenuItem;
+        private System.Windows.Forms.Button rank_btn;
     }
 }
 
