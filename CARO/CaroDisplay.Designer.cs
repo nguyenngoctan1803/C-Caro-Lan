@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CaroDisplay));
             this.chessboard_pnl = new System.Windows.Forms.Panel();
             this.player0_image = new System.Windows.Forms.PictureBox();
             this.player0_name = new System.Windows.Forms.Label();
@@ -849,6 +850,7 @@
             this.Controls.Add(this.chessboard_pnl);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1437, 900);
