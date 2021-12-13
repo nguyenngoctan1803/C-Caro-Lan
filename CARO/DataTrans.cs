@@ -40,6 +40,7 @@ namespace CARO
         NEW_GAME,
         END_GAME,
         TIME_OUT,
-        QUIT
+        OUT_ROOM,
+        CHAT
     }
 }

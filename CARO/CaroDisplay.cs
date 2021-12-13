@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.IO;
+
 namespace CARO
 {
     public partial class CaroDisplay : Form
@@ -35,71 +37,41 @@ namespace CARO
             
             
         }
-        private void SoundClick()
-        {
-            string pat = "D:\\C#\\shiba_C#\\clickbutton.wav";
-            SoundPlayer vov = new SoundPlayer();
-            vov.SoundLocation = pat;
-            vov.Load();
-            vov.Play();
-        }
+        
         private void CaroDisplay_Load(object sender, EventArgs e)
         {
-            //player0_image.Image = ChessBoard.Player[0].Avata;
-            //player0_name.Text = ChessBoard.Player[0].Name;
-            //player0_symboy.Text = ChessBoard.Player[0].Symboy;
-
-            //player1_image.Image = ChessBoard.Player[1].Avata;
-            //player1_name.Text = ChessBoard.Player[1].Name;
-            //player1_symboy.Text = ChessBoard.Player[1].Symboy;
-
-            
-           
+            sound_music();
         }
 
         
         void NewGame()
         {
-            
-            
-                ChessBoard.draw_banco();
-           
-            
-          
-                foreach (Control Button in chessboard_pnl.Controls)
-                {
-                    Button.BackgroundImage = null;
-                    //Button.BackColor = Color.White;
-                    Button.Tag = "";
-                }
-           
-            
+            ChessBoard.draw_banco();
+            //ChessBoard.ChangePlayer = 0;
+
+            foreach (Control Button in chessboard_pnl.Controls)
+            {
+                Button.BackgroundImage = null;
+                Button.BackColor = Color.Transparent;
+                Button.Tag = "";
+            }
         }
 
         void Undo()
         {
-
+            ChessBoard.Undo();
         }
 
         void EndGame()
         {
-            timer_play.Stop();
-            foreach (Control x in chessboard_pnl.Controls)
+            this.Invoke((MethodInvoker)(() =>
             {
-                if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
-                {
-                    x.Click -= ChessBoard.danhco;
-                }
-            }
-            if (ChessBoard.changePlayer == 1)
-            {
-                MessageBox.Show("Hảo Hán\nBạn Đã Thắng!", "Thông Báo", MessageBoxButtons.OK);
-            }
-            else
-            {
-                MessageBox.Show("Gà\nBạn Đã Thua!", "Thông Báo", MessageBoxButtons.OK);
-            }
-            
+                timer_play.Stop();
+                progressBar_left.Value = 0;
+                progressBar_right.Value = 0;
+                progressBar_left.Visible = false;
+                progressBar_right.Visible = false;
+            }));
         }
 
         void TimeOut()
@@ -118,34 +90,47 @@ namespace CARO
         }
        
         private void ChessBoard_Player_Click(object sender, ChessClickEvent e)
-        {
-            
+        {      
             this.Invoke((MethodInvoker)(() =>
             {
-                if(e.ClickedPoint == new Point(20,20))
+                if (e.ClickedPoint == new Point(20, 20))
                 {
 
                 }
                 else
                 {
-                    foreach (Control x in chessboard_pnl.Controls)
-                    {
-                        if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
-                        {
-                            x.Click -= ChessBoard.danhco;
-                        }
-                    }
+                    sound_click();
                     progressBar_left.Value = 0;
                     progressBar_right.Value = 0;
                     timer_play.Start();
+                    check_symboy();
+                    if (mode == 1)
+                    {
+                        //người đánh
+                        foreach (Control x in chessboard_pnl.Controls)
+                        {
+                            if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
+                            {
+                                x.Click -= ChessBoard.danhco;
+                            }
+                        }
+                        
+                    }
+                    else if (mode == 0)
+                    {
+                        // máy đánh
+                        foreach (Control x in chessboard_pnl.Controls)
+                        {
+                            if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
+                            {
+                                x.Click -= ChessBoard.danhco;
+                            }
+                        }
 
-                    
+                        ChessBoard.computer_play();
+                        sound_clickk();
+                    }
                 }
-                
-            }));
-
-            if (mode == 1)
-            {
                 try
                 {
                     socket.Send(new DataTrans((int)SocketCommand.POINT_TRANS, "", ChessBoard.Player[0].Sb, e.ClickedPoint));
@@ -155,50 +140,90 @@ namespace CARO
                 {
 
                 }
-                check_symboy();
-            }
-            else if (mode == 0)
-            {
-                //máy đánh
-                foreach (Control x in chessboard_pnl.Controls)
-                {
-                    if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
-                    {
-                        x.Click -= ChessBoard.danhco;
-                    }
-                }
-                ChessBoard.computer_play();
-            }
+            }));
+
+            
             
         }
 
-    
+        //thắng thua 5 chess
         private void ChessBoard_EndedGame(object sender, EventArgs e)
-        {
-            if(mode == 0)
-            {
+        {          
+            timer_play.Stop();
+            progressBar_left.Value = 0;
+            progressBar_right.Value = 0;
+            progressBar_left.Visible = false;
+            progressBar_right.Visible = false;
+            if (mode == 0)
+            {                           
                 update_status.Text = "Máy đã sẵn sàng...";
                 update_status.ForeColor = Color.Green;
                 ready.Text = "Bắt Đầu";
-                ready.Visible = true;
-                
+                ready.Enabled = true;   
+                if(ChessBoard.ChangePlayer == 1)
+                {
+                    sound_win();
+                    MessageBox.Show(player0_name.Text + " Đã Thắng!", "Thông Báo", MessageBoxButtons.OK);
+                    
+                }
+                else
+                {
+                    sound_lose();
+                    MessageBox.Show(player1_name.Text + " Đã Thắng!", "Thông Báo", MessageBoxButtons.OK);
+                }
+                ChessBoard.ChangePlayer = 0;
             }
             else if(mode == 1)
             {
+                
                 update_status.Text = "Đang chờ đối thủ...";
                 update_status.ForeColor = Color.Red;
                 ready.BackColor = Color.Transparent;
                 if(ready.Text == "Sẵn Sàng")
                 {                  
-                    ready.Visible = true;
+                    ready.Enabled = true;
+                    update_status.Text = player0_name.Text + " đang chờ bạn sẵn sàng...";
                 }
                 else if(ready.Text == "Bắt Đầu")
                 {
-                    ready.Visible = false;
+                    ready.Enabled = false;
+                    update_status.Text ="Đang chờ " + player1_name.Text + " sẵn sàng...";
                 }
-               
+                if (ChessBoard.ChangePlayer == 1)
+                {
+                    if(player0_name.Text == ChessBoard.Player[0].Name)
+                    {
+                        sound_win();
+                        Rank rk = new Rank();
+                        rk.Update_Score(player0_name.Text);
+                    }
+                    else
+                    {
+                        sound_lose();
+                    }
+                    MessageBox.Show(player0_name.Text + " Đã Thắng!\n.........................", "Thông Báo", MessageBoxButtons.OK);
+                    socket.Send(new DataTrans((int)SocketCommand.END_GAME, player1_name + " Đã Thua!\nGà.......................", ChessBoard.Player[0].Sb, new Point()));
+                }
+                else
+                {
+                    if (player1_name.Text == ChessBoard.Player[0].Name)
+                    {
+                        sound_win();
+                        Rank rk = new Rank();
+                        rk.Update_Score(player1_name.Text);
+                    }
+                    else
+                    {
+                        sound_lose();
+                    }
+                    MessageBox.Show(player1_name.Text + " Đã Thắng!\n.........................", "Thông Báo", MessageBoxButtons.OK);
+                    socket.Send(new DataTrans((int)SocketCommand.END_GAME, player0_name + " Đã Thua!\nGà.......................", ChessBoard.Player[0].Sb, new Point()));
+                }
+
             }
             Status_pnl.Visible = true;
+           
+            Listen();
         }
       
 
@@ -222,16 +247,114 @@ namespace CARO
                 }
                 if (progressBar_left.Value >= progressBar_left.Maximum)
                 {
-
-                    MessageBox.Show(player0_name + " hết thời gian/n" + player1_name + " đã thắng!", "Thông báo", MessageBoxButtons.OK);
                     timer_play.Stop();
+                    progressBar_left.Value = 0;
+                    progressBar_right.Value = 0;
+                    progressBar_left.Visible = false;
+                    progressBar_right.Visible = false;
+                    if (mode == 0)
+                    {
+                        sound_lose();
+                        update_status.Text = "Máy đã sẵn sàng...";
+                        update_status.ForeColor = Color.Green;
+                        ready.Text = "Bắt Đầu";
+                        ready.Enabled = true;
+                        MessageBox.Show(player0_name.Text + " hết thời gian\n" + player1_name.Text + " đã thắng!", "Thông báo", MessageBoxButtons.OK);
+                    }
+                    else if (mode == 1)
+                    {
+                        update_status.Text = "Đang chờ đối thủ...";
+                        update_status.ForeColor = Color.Red;
+                        ready.BackColor = Color.Transparent;
+                        if (ready.Text == "Sẵn Sàng")
+                        {
+                            ready.Enabled = true;
+                            update_status.Text = player0_name.Text + " đang chờ bạn sẵn sàng...";
+                        }
+                        else if (ready.Text == "Bắt Đầu")
+                        {
+                            ready.Enabled = false;
+                            update_status.Text = "Đang chờ " + player1_name.Text + " sẵn sàng...";
+                        }
+                        
+                        if(ChessBoard.ChangePlayer == 0)
+                        {
+                            if (player1_name.Text == ChessBoard.Player[0].Name)
+                            {
+                                
+                                Rank rk = new Rank();
+                                rk.Update_Score(player1_name.Text);
+                                sound_win();
+                            }
+                            else
+                            {
+                                sound_lose();
+                            }
+
+                            socket.Send(new DataTrans((int)SocketCommand.END_GAME, player0_name + " Đã Thua!\nGà.......................", ChessBoard.Player[0].Sb, new Point()));
+                        }
+                        MessageBox.Show(player0_name.Text + " hết thời gian\n" + player1_name.Text + " đã thắng!", "Thông báo", MessageBoxButtons.OK);
+                        
+                    }
+                    Status_pnl.Visible = true;
+
                 }
                 else if (progressBar_right.Value >= progressBar_right.Maximum)
                 {
-
-                    MessageBox.Show(player1_name + " hết thời gian/n" + player0_name + " đã thắng!", "Thông báo", MessageBoxButtons.OK);
                     timer_play.Stop();
+                    progressBar_left.Value = 0;
+                    progressBar_right.Value = 0;
+                    progressBar_left.Visible = false;
+                    progressBar_right.Visible = false;
+                    if (mode == 0)
+                    {
+                        sound_win();
+                        update_status.Text = "Máy đã sẵn sàng...";
+                        update_status.ForeColor = Color.Green;
+                        ready.Text = "Bắt Đầu";
+                        ready.Enabled = true;
+                        MessageBox.Show(player1_name.Text + " hết thời gian\n" + player0_name.Text + " đã thắng!", "Thông báo", MessageBoxButtons.OK);
+                    }
+                    else if (mode == 1)
+                    {
+
+                        update_status.Text = "Đang chờ đối thủ...";
+                        update_status.ForeColor = Color.Red;
+                        ready.BackColor = Color.Transparent;
+                        if (ready.Text == "Sẵn Sàng")
+                        {
+                            ready.Enabled = true;
+                            update_status.Text = player0_name.Text + " đang chờ bạn sẵn sàng...";
+                        }
+                        else if (ready.Text == "Bắt Đầu")
+                        {
+                            ready.Enabled = false;
+                            update_status.Text = "Đang chờ " + player1_name.Text + " sẵn sàng...";
+                        }
+                        if (ChessBoard.ChangePlayer == 1)
+                        {
+                            if (player0_name.Text == ChessBoard.Player[0].Name)
+                            {
+                                
+                                Rank rk = new Rank();
+                                rk.Update_Score(player0_name.Text);
+                                sound_win();
+                            }
+                            else
+                            {
+                                sound_lose();
+                            }
+
+                            socket.Send(new DataTrans((int)SocketCommand.END_GAME, player1_name + " Đã Thua!\nGà.......................", ChessBoard.Player[0].Sb, new Point()));
+                        }
+                        
+                        MessageBox.Show(player1_name.Text + " hết thời gian\n" + player0_name.Text + " đã thắng!", "Thông báo", MessageBoxButtons.OK);                      
+
+                    }
+                    
+                    Status_pnl.Visible = true;
                 }
+                
             }));
             
 
@@ -240,64 +363,109 @@ namespace CARO
 
         private void close_game(object sender, FormClosingEventArgs e)
         {
-            DialogResult dlg = MessageBox.Show("Bạn có chắc chắn muốn thoát", "Thông báo", MessageBoxButtons.OKCancel);
-            if (dlg != DialogResult.OK)
+            this.Invoke((MethodInvoker)(() =>
             {
-                e.Cancel = true;
-            }
-            else
-            {
-                try
+                sound_click();
+                DialogResult dlg = MessageBox.Show("Bạn có chắc chắn muốn thoát", "Thông báo", MessageBoxButtons.OKCancel);
+                if (dlg != DialogResult.OK)
                 {
-                    socket.Send(new DataTrans((int)SocketCommand.QUIT, "Đối phương đã mất kết nối!", ChessBoard.Player[0].Sb, new Point()));
-                    NewGame();
-                    Listen();
+                    e.Cancel = true;
                 }
-                catch
+                else
                 {
+                    timer_sever.Stop();
+                    try
+                    {
+                        socket.Send(new DataTrans((int)SocketCommand.OUT_ROOM, "Đối phương đã mất kết nối!", ChessBoard.Player[0].Sb, new Point()));                     
+                        Listen();
+                    }
+                    catch
+                    {
+                      
+                    }
                     NewGame();
+
                 }
-                socket = null;
-                
-            }
-            
+
+            }));
+
+
         }
         private void exit_game(object sender, EventArgs e)
         {
-            DialogResult dlg = MessageBox.Show("Rời khỏi phòng!", "Thông báo", MessageBoxButtons.OKCancel);
-            if(dlg == DialogResult.OK)
+            this.Invoke((MethodInvoker)(() =>
             {
-                timer_play.Stop();
-
-                progressBar_left.Value = 0;
-                progressBar_right.Value = 0;
-
-                out_room_btn.Visible = false;
-                maphong.Visible = false;
-                label_maphong.Visible = false;
-                try
+                sound_click();
+                DialogResult dlg = MessageBox.Show("Rời khỏi phòng!", "Thông báo", MessageBoxButtons.OKCancel);
+                if (dlg == DialogResult.OK)
                 {
-                    socket.Send(new DataTrans((int)SocketCommand.QUIT, "Đối phương đã rời khỏi phòng!", ChessBoard.Player[0].Sb, new Point()));
-                    NewGame();
-                    Listen();
+                    timer_play.Stop();
+                    //timer_sever.Stop();   //ngừng fix bug
+
+                    progressBar_left.Value = 0;
+                    progressBar_right.Value = 0;
+                    progressBar_left.Visible = false;
+                    progressBar_right.Visible = false;
+
+                    out_room_btn.Visible = false;
+                    maphong.Visible = false;
+                    label_maphong.Visible = false;
+                    Status_pnl.Visible = true;
+                    Option_pnl.Visible = true;
+
+                    ChessBoard.Player[0].Name = ChessBoard.Player[2].Name;
+                    ChessBoard.Player[0].Symboy = ChessBoard.Player[2].Symboy;
+                    ChessBoard.Player[0].Sb = ChessBoard.Player[2].Sb;
+                    ChessBoard.Player[1].Name = ChessBoard.Player[3].Name;
+                    ChessBoard.Player[1].Symboy = ChessBoard.Player[3].Symboy;
+                    ChessBoard.Player[1].Sb = ChessBoard.Player[3].Sb;
+
+                    player0_name.Text = ChessBoard.Player[0].Name;
+                    player0_symboy.Image = ChessBoard.Player[0].Symboy;
+
+                    player0_image.Visible = true;
+                    player0_name.Visible = true;
+                    player0_symboy.Visible = true;
+                    player1_image.Visible = false;
+                    player1_name.Visible = false;
+                    player1_symboy.Visible = true;
+                    player1_name.Text = ChessBoard.Player[3].Name;
+                    player1_symboy.Image = ChessBoard.Player[3].Symboy;
+                   
+                    try
+                    {
+                        socket.Send(new DataTrans((int)SocketCommand.OUT_ROOM, "Đối phương đã rời khỏi phòng!", ChessBoard.Player[0].Sb, new Point()));
+                        NewGame();
+                        
+                    }
+                    catch
+                    {
+                        NewGame();
+                    }
+
                 }
-                catch
-                {
-                    NewGame();
-                }
-                socket = null;
-            }
-            
-            
-    
+
+                Listen();
+                socket.IP = "";
+            }));
 
             
-
         }
 
         private void option_btn_Click(object sender, EventArgs e)
         {
+            sound_click();
+            Status_pnl.Visible = true;
             Option_pnl.Visible = Option_pnl.Visible == true ? false : true;
+            if (progressBar_left.Value==0 && progressBar_right.Value == 0)
+            {
+                save_option_btn.Text = "OK";
+            }
+            else
+            {
+                save_option_btn.Text = "Continue";
+            }
+            
         }
         private void out_room_btn_VisibleChanged(object sender, EventArgs e)
         {
@@ -312,9 +480,10 @@ namespace CARO
         }
         private void regime_chose(object sender, EventArgs e)
         {
+            sound_click();
             Button btn = (Button)sender;
             if(btn.Text == person.Text)
-            {
+            {              
                 mode = 1;
                 person.BackColor = Color.LimeGreen;
                 computer.BackColor = Color.White;
@@ -325,6 +494,9 @@ namespace CARO
                 search_btn.Visible = true;
                 search_roomid.Visible = true;
                 addRoom_btn.Visible = true;
+
+                saveToolStripMenuItem.Enabled = false;
+                openToolStripMenuItem.Enabled = false;
             }
             else
             {
@@ -355,18 +527,38 @@ namespace CARO
         }
         private void save_option_btn_Click(object sender, EventArgs e)
         {
-            Status_pnl.Visible = true;
-
+            sound_clickk();
+            if (save_option_btn.Text == "OK")
+            {
+                Status_pnl.Visible = true;          
+            }
+            else
+            {
+                Status_pnl.Visible = false;
+            }
             player1_name.Visible = true;
             player1_symboy.Visible = true;
             player1_image.Visible = true;
-            Option_pnl.Visible = false;     
+            Option_pnl.Visible = false;
         }
 
         private void addRoom_btn_Click(object sender, EventArgs e)
         {
             this.Invoke((MethodInvoker)(() =>
-            {            
+            {
+                sound_clickk();
+                timer_play.Stop();
+                progressBar_right.Value = 0;
+                progressBar_left.Value = 0;
+                player0_name.Visible = true;
+                player0_symboy.Visible = true;
+                player0_image.Visible = true;
+                player1_name.Visible = false;
+                player1_symboy.Visible = true;
+                player1_image.Visible = false;
+                progressBar_left.Visible = false;
+                progressBar_right.Visible = false;
+                //socket.serve.Accept();
                 if (addRoom_btn.Text == "Tạo Phòng")
                 {
                     socket.IP = maphong.Tag.ToString();
@@ -374,11 +566,11 @@ namespace CARO
                     if (!socket.ConnectServe())
                     {
                         socket.CrateServe();
-                        timer_sever.Start();
                     }
-
+                    timer_sever.Start();
                     ready.Text = "Bắt Đầu";
                     ready.Enabled = false;
+                    chat_left.Visible = true;
                     Status_pnl.Visible = true;
                     out_room_btn.Visible = true;
                     maphong.Visible = true;
@@ -390,11 +582,13 @@ namespace CARO
                         {
                             x.Click -= ChessBoard.danhco;
                         }
-                    }
+                    }                   
+                    
                 }
                 else if (addRoom_btn.Text == "Tìm Phòng")
                 {
                     search_button_Click(sender, e);
+                    chat_right.Visible = true;
                 }
             }));
 
@@ -415,7 +609,6 @@ namespace CARO
         }
         public void flag()
         {
-            SoundClick();
             ChessBoard_Player_Click(new object(), new ChessClickEvent(new Point(20, 20)));
         }
       
@@ -424,8 +617,8 @@ namespace CARO
             
             this.Invoke((MethodInvoker)(() =>
             {
-                
-                
+
+                sound_clickk();
                 if (search_roomid.Text.Length == 8)
                 {
                     string ip = RoomIDtoIP(search_roomid.Text);
@@ -440,7 +633,7 @@ namespace CARO
                     else
                     {                      
                         player1_name.Text = player0_name.Text;
-                        player0_symboy.Image = player0_symboy.Image;
+                        player1_symboy.Image = player0_symboy.Image;
                         
                         foreach (Control x in chessboard_pnl.Controls)
                         {
@@ -463,14 +656,14 @@ namespace CARO
                         
                         try
                         {
-                            socket.Send(new DataTrans((int)SocketCommand.NOTIFY, ChessBoard.Player[0].Name, ChessBoard.Player[0].Sb, new Point()));
-                            Listen();
+                            MessageBox.Show("close");
+                            socket.Send(new DataTrans((int)SocketCommand.NOTIFY, ChessBoard.Player[0].Name, ChessBoard.Player[0].Sb, new Point()));                          
                         }
                         catch
                         {
 
                         }
-                   
+                       
 
                     }
 
@@ -480,6 +673,9 @@ namespace CARO
                     MessageBox.Show("Mã phòng không hợp lệ\nNhập lại dùm cái đi!", "Thông báo", MessageBoxButtons.OK);
                     search_roomid.Focus();
                 }
+
+                Listen();
+
             }));
    
            
@@ -523,7 +719,7 @@ namespace CARO
         {
             foreach (Control x in chessboard_pnl.Controls)
             {
-                if (x.BackgroundImage != ChessBoard.Player[0].Symboy && x.BackgroundImage != ChessBoard.Player[1].Symboy&& x.BackgroundImage != null)
+                if (x.BackgroundImage != ChessBoard.Player[0].Symboy && x.BackgroundImage != ChessBoard.Player[1].Symboy && x.BackgroundImage != null)
                 {
                     x.BackgroundImage = ChessBoard.Player[0].Symboy;
                 }
@@ -531,11 +727,9 @@ namespace CARO
         }
         void SendName()
         {
-            SoundClick();
             try
             {
-                socket.Send(new DataTrans((int)SocketCommand.NAME, ChessBoard.Player[0].Name, ChessBoard.Player[0].Sb, new Point()));
-                //Listen();
+                socket.Send(new DataTrans((int)SocketCommand.NAME, ChessBoard.Player[0].Name, ChessBoard.Player[0].Sb, new Point()));  
             }
             catch
             {
@@ -549,7 +743,10 @@ namespace CARO
                 case (int)SocketCommand.NOTIFY:
                     this.Invoke((MethodInvoker)(() =>
                     {
+                        sound_welcome();
                         player1_name.Text = data.Message;
+                        ChessBoard.Player[1].Name = data.Message;
+                        update_status.Text = "Đang chờ " + data.Message + " sẵn sàng...";
                         player1_image.Visible = true;
                         player1_name.Visible = true;
                         player1_symboy.Visible = true;
@@ -560,6 +757,8 @@ namespace CARO
                     this.Invoke((MethodInvoker)(() =>
                     {
                         player0_name.Text = data.Message;
+                        ChessBoard.Player[1].Name = data.Message;
+                        update_status.Text = data.Message + " đang chờ bạn sẵn sàng...";
                         if (data.Img == Convert.ToString(x_symboy.Tag))
                         {
                            
@@ -594,6 +793,7 @@ namespace CARO
                             ChessBoard.Player[0].Symboy = shield_symboy.BackgroundImage;
                             ChessBoard.Player[1].Symboy = sword_symboy.BackgroundImage;
                         }
+
                         player0_symboy.Image = ChessBoard.Player[0].Symboy;
                         player1_symboy.Image = ChessBoard.Player[1].Symboy;
 
@@ -609,16 +809,21 @@ namespace CARO
                         }
                         else
                         {
+                            sound_clickk();
                             foreach (Control x in chessboard_pnl.Controls)
                             {
+                                if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
+                                {
+                                    x.Click -= ChessBoard.danhco;
+                                }
                                 if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
                                 {
                                     x.Click += ChessBoard.danhco;
                                 }
                             }
-
-                            ChessBoard.SendChess(data.Point);
                             timer_play.Start();
+                            ChessBoard.SendChess(data.Point);
+                            
                         }
                               
                     }));                   
@@ -626,6 +831,7 @@ namespace CARO
                 case (int)SocketCommand.READY:
                     this.Invoke((MethodInvoker)(() =>
                     {
+                        sound_clickk();
                         update_status.Text = data.Message + " đã sẵn sàng...";
                         update_status.ForeColor = Color.LimeGreen;
                     }));
@@ -634,31 +840,96 @@ namespace CARO
                 case (int)SocketCommand.NEW_GAME:
                     this.Invoke((MethodInvoker)(() =>
                     {
+                        sound_clickk();
                         Status_pnl.Visible = false;
                         NewGame();
-                        foreach(Control x in chessboard_pnl.Controls)
+                        if(ChessBoard.ChangePlayer == 0)
                         {
-                            if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
+                            foreach (Control x in chessboard_pnl.Controls)
                             {
-                                x.Click -= ChessBoard.danhco;
+
+                                if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
+                                {
+                                    x.Click -= ChessBoard.danhco;
+                                }
                             }
+                            MessageBox.Show("Bạn đánh sau nhé! :>", "Thông báo", MessageBoxButtons.OK);
                         }
-                        MessageBox.Show("Bạn đánh sau nhé! Người ta là chủ phòng mà :>", "Thông báo", MessageBoxButtons.OK);
+                        else
+                        {
+                            foreach (Control x in chessboard_pnl.Controls)
+                            {
+
+                                if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
+                                {
+                                    x.Click += ChessBoard.danhco;
+                                }
+                            }
+                            MessageBox.Show("Bạn đánh trước nhé! :>", "Thông báo", MessageBoxButtons.OK);
+                        }
+                        
                     }));
                     
                     break;
                 case (int)SocketCommand.END_GAME:
-                    EndGame();
-                    MessageBox.Show(data.Message);
+                    EndGame();              
                     break;
                 case (int)SocketCommand.TIME_OUT:
                     MessageBox.Show(data.Message,"Thông báo", MessageBoxButtons.OK);
                     break;
-                case (int)SocketCommand.QUIT:
+                case (int)SocketCommand.OUT_ROOM:
+                    sound_clickk();
                     timer_play.Stop();
+                    ready.Enabled = false;
+                    ready.Text = "Bắt Đầu";
+                    Status_pnl.Visible = true;
+                    out_room_btn.Visible = true;
+                    maphong.Visible = true;
+                    label_maphong.Visible = true;
+                    update_status.Text = "Đang chờ đối thủ...";
+                    update_status.ForeColor = Color.Red;
+                    Option_pnl.Visible = false;
+                    progressBar_right.Value = 0;
+                    progressBar_left.Value = 0;
+                    player0_name.Visible = true;
+                    player0_symboy.Visible = true;
+                    player0_image.Visible = true;
+                    player0_name.Text = ChessBoard.Player[0].Name;
+                    player0_symboy.Image = ChessBoard.Player[0].Symboy;
+                    player1_name.Visible = false;
+                    player1_symboy.Visible = true;
+                    player1_image.Visible = false;
+                    progressBar_left.Visible = false;
+                    progressBar_right.Visible = false;
+                    player1_name.Text = ChessBoard.Player[3].Name;
+                    player1_symboy.Image = ChessBoard.Player[3].Symboy;
+                    foreach (Control x in chessboard_pnl.Controls)
+                    {
+                        if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
+                        {
+                            x.Click -= ChessBoard.danhco;
+                        }
+                    }
+
                     MessageBox.Show(data.Message, "Thông báo", MessageBoxButtons.OK);
-                    socket = null;
                     NewGame();
+                    break;
+                case (int)SocketCommand.CHAT:
+                    this.Invoke((MethodInvoker)(() =>
+                    {
+                        if (chat_left.Visible == true)
+                        {
+                            show_chatright.Text = data.Message;
+                            show_chatright.Visible = true;
+                            timerright.Start();
+                        }
+                        else if (chat_right.Visible == true)
+                        {
+                            show_chatleft.Text = data.Message;
+                            show_chatleft.Visible = true;
+                            timerleft.Start();
+                        }
+                    }));
                     break;
                 default:
                     break;
@@ -683,25 +954,101 @@ namespace CARO
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            //thông tin
+            sound_click();
             About ab = new About();
             ab.Show();
         }
 
         private void ruleToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //luật chơi
+            sound_click();
+            Rule ru = new Rule();
+            ru.Show();
 
         }
-
+        ListGameSave sg = new ListGameSave();
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            sound_click();         
+            sg.UIParent = this;
+            sg.control_savegame.Visible = true;
+            sg.Show();
 
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            sound_click();
+            sg.UIParent = this;
+            sg.control_savegame.Visible = false;
+            sg.Show();
         }
+        public void SaveGame(string str)
+        {
+            //lưu txt với tên được đặt
+            string thumuc = "D://C#savegame";
+            if (!Directory.Exists(thumuc))
+            {
+                System.IO.Directory.CreateDirectory(thumuc);
+            }
+            string filePath = thumuc + "//" + str + ".txt";
+            string chess = "";
+            //chuyển bàn cờ thành file .txt
+            foreach (Control x in chessboard_pnl.Controls)
+            {
+                if (x.Tag.ToString() == "")
+                {                   
+                    chess += "a";
+                }
+                else if (x.Tag.ToString() == "X")
+                {
+                    chess += "X";
+                }
+                else if (x.Tag.ToString() == "O")
+                {
+                    chess += "O";
+                }
+                chess += " ";
+            }
 
+            File.WriteAllText(filePath, chess);
+        }
+        public void OpenGame(Button btn)
+        {
+            //chuyển .txt thành bán cờ
+            timer_play.Stop();
+            progressBar_left.Value = 0;
+            progressBar_right.Value = 0;
+            progressBar_left.Visible = false;
+            progressBar_right.Visible = false;
+            string thumuc = "D://C#savegame";           
+            string filePath = thumuc + "//" + btn.Text + ".txt";
+            string chess = File.ReadAllText(filePath);
+            string[] ches = chess.Split(' ');
+            int i = 0;
+            foreach(Control x in chessboard_pnl.Controls)
+            {
+                if(ches[i].ToString()=="a")
+                {
+                    x.Tag = "";
+                }
+                else if(ches[i].ToString()=="X")
+                {
+                    x.Tag = "X";
+                    x.BackgroundImage = ChessBoard.Player[0].Symboy;
+                }
+                else if (ches[i].ToString() == "O")
+                {
+                    x.Tag = "O";
+                    x.BackgroundImage = ChessBoard.Player[1].Symboy;
+                }
+                i += 1;
+            }
+
+            sg.Hide();
+        }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -709,6 +1056,7 @@ namespace CARO
 
         private void Chose_symboy(object sender, EventArgs e)
         {
+            sound_clickk();
             Button btn = sender as Button;
             x_symboy.BackColor = Color.Transparent;
             o_symboy.BackColor = Color.Transparent;
@@ -754,9 +1102,19 @@ namespace CARO
 
         private void start_game(object sender, EventArgs e)
         {
+            sound_clickk();
             ChessBoard.Player[0].Name = ingame.Text;
             player0_name.Text = ChessBoard.Player[0].Name;
             player0_symboy.Image = ChessBoard.Player[0].Symboy;
+
+            //lưu lại vào Player[2]
+            ChessBoard.Player[2].Name = ChessBoard.Player[0].Name;
+            ChessBoard.Player[2].Symboy = ChessBoard.Player[0].Symboy;
+            ChessBoard.Player[2].Sb = ChessBoard.Player[0].Sb;
+            //máy
+            ChessBoard.Player[3].Symboy = ChessBoard.Player[1].Symboy;
+            ChessBoard.Player[3].Sb = ChessBoard.Player[1].Sb;
+            //
             player1_name.Text = ChessBoard.Player[1].Name;
             player1_symboy.Image = ChessBoard.Player[1].Symboy;
 
@@ -765,7 +1123,11 @@ namespace CARO
             player0_symboy.Visible = true;
             player1_symboy.Visible = true;
 
+            Option_pnl.Visible = true;
             start_pnl.Visible = false;
+
+            Rank rk = new Rank();
+            rk.add_Player(ingame.Text);
 
         }
 
@@ -774,28 +1136,50 @@ namespace CARO
         {
             this.Invoke((MethodInvoker)(() =>
             {
+                sound_clickk();
+                timer_play.Stop();
+                progressBar_left.Value = 0;
+                progressBar_right.Value = 0;
                 if(mode==1)
                 {
                     if (ready.Text == "Sẵn Sàng")
                     {
-                        ready.BackColor = Color.Green;
+                        update_status.Text = "Đã Sẵn Sàng!...";
+                        update_status.ForeColor = Color.LimeGreen;
                         socket.Send(new DataTrans((int)SocketCommand.READY, ChessBoard.Player[0].Name, ChessBoard.Player[0].Sb, new Point()));
-
                     }
                     else if (ready.Text == "Bắt Đầu")
                     {
-                        ready.BackColor = Color.Green;
+                        //ready.BackColor = Color.Green;
                         NewGame();
                         socket.Send(new DataTrans((int)SocketCommand.NEW_GAME, ChessBoard.Player[0].Name, ChessBoard.Player[0].Sb, new Point()));
                         Status_pnl.Visible = false;
-                        MessageBox.Show("Bạn đánh trước!:>", "Thông báo", MessageBoxButtons.OK);
+                        if (ChessBoard.ChangePlayer == 0)
+                        {
+                            MessageBox.Show("Bạn đánh trước nhé!:>", "Thông báo", MessageBoxButtons.OK);
+                        }
+                        else
+                        {
+                            foreach (Control x in chessboard_pnl.Controls)
+                            {
+
+                                if (Convert.ToString(x.Tag) != "X" && Convert.ToString(x.Tag) != "O")
+                                {
+                                    x.Click -= ChessBoard.danhco;
+                                }
+                            }
+                            MessageBox.Show("Bạn đánh sau nhé!:>", "Thông báo", MessageBoxButtons.OK);
+                        }
                     }
+                    
                 }
                 else if(mode == 0)
                 {
-                    ready.BackColor = Color.Green;
+                    //ready.BackColor = Color.Green;
                     NewGame();
                     Status_pnl.Visible = false;
+                    saveToolStripMenuItem.Enabled = true;
+                    openToolStripMenuItem.Enabled = true;
                     MessageBox.Show("Bạn đánh trước!:>", "Thông báo", MessageBoxButtons.OK);
                 }
                 
@@ -820,7 +1204,195 @@ namespace CARO
 
         private void undo_btn_Click(object sender, EventArgs e)
         {
-            NewGame();
+            Undo();
+            Undo();
+            progressBar_left.Value = 0;
+        }
+
+        private void rule_btn_Click(object sender, EventArgs e)
+        {
+            sound_click();
+            Rule ru = new Rule();
+            ru.Show();
+        }
+
+        private void Status_pnl_VisibleChanged(object sender, EventArgs e)
+        {
+            if(Status_pnl.Visible == true)
+            {
+                chessboard_pnl.Visible = false;
+            }
+            else
+            {
+                chessboard_pnl.Visible = true;
+            }
+        }
+
+        // Âm thanh
+        public void sound_welcome()
+        {
+            if (wav == 1)
+            {
+                SoundPlayer vov = new SoundPlayer(Properties.Resources.welcome);
+                vov.Play();
+            }
+        }
+        public void sound_click()
+        {         
+            if(wav ==1)
+            {
+                SoundPlayer vov = new SoundPlayer(Properties.Resources.click);
+                vov.Play();
+            }        
+        }
+        public void sound_music()
+        {
+            if (wav == 1)
+            {
+                SoundPlayer vov = new SoundPlayer(Properties.Resources.music);
+                vov.PlayLooping();
+            }
+        }
+        public void sound_clickk()
+        {
+            if (wav == 1)
+            {
+                SoundPlayer vov = new SoundPlayer(Properties.Resources.clickk);
+                vov.Play();
+            }
+        }
+        public void sound_lose()
+        {
+            if (wav == 1)
+            {
+                SoundPlayer vov = new SoundPlayer(Properties.Resources.lose);
+                vov.Play();
+            }
+        }
+        public void sound_win()
+        {
+            if (wav == 1)
+            {
+                SoundPlayer vov = new SoundPlayer(Properties.Resources.win);
+                vov.Play();
+            }
+        }
+        int wav = 1;
+        public void Sound_Click(object sender, EventArgs e)
+        {
+            if(wav == 1)
+            {
+                SoundPlayer vov = new SoundPlayer(Properties.Resources.win);
+                vov.Stop();
+                wav = 0;
+                Sound.BackgroundImage = CARO.Properties.Resources.audio_speaker1;
+            }
+            else
+            {             
+                wav = 1;
+                Sound.BackgroundImage = CARO.Properties.Resources.audio_speaker;
+            }
+            
+        }
+
+
+        //hình ảnh
+
+        int pic = 0;
+        private void picture_Click(object sender, EventArgs e)
+        {
+            if(pic ==0)
+            {
+                chessboard_pnl.BackgroundImage = CARO.Properties.Resources.anh2;
+                pic = 1;
+            }
+            else if(pic == 1)
+            {
+                chessboard_pnl.BackgroundImage = CARO.Properties.Resources.anh4;
+                pic = 2;
+            }
+            else if (pic == 2)
+            {
+                chessboard_pnl.BackgroundImage = CARO.Properties.Resources.anh5;
+                pic = 3;
+            }
+            else if (pic == 3)
+            {
+                chessboard_pnl.BackgroundImage = CARO.Properties.Resources.anh0;
+                pic = 0;
+            }
+        }
+
+        private void control_pnl_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Rank_Click(object sender, EventArgs e)
+        {
+            Rank rk = new Rank();
+            rk.Show();
+        }
+
+        private void chat_left_Click(object sender, EventArgs e)
+        {
+            text_left.Visible = true;
+
+        }
+
+        private void chat_right_Click(object sender, EventArgs e)
+        {
+            text_right.Visible = true;
+        }
+
+        private void text_left_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                text_left.Visible = false;
+                show_chatleft.Text = text_left.Text;
+                text_left.Text = "";
+                show_chatleft.Visible = true;
+                timerleft.Start();
+                socket.Send(new DataTrans((int)SocketCommand.CHAT, show_chatleft.Text, ChessBoard.Player[0].Sb, new Point()));
+                Listen();
+            }
+        }
+
+        private void text_right_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                text_right.Visible = false;
+                show_chatright.Text = text_right.Text;
+                text_right.Text = "";
+                show_chatright.Visible = true;
+                timerright.Start();
+                socket.Send(new DataTrans((int)SocketCommand.CHAT, show_chatright.Text, ChessBoard.Player[0].Sb, new Point()));
+                Listen();
+            }
+        }
+        int time = 0;
+        private void timerleft_Tick(object sender, EventArgs e)
+        {
+            time += 1;
+            if(time == 3)
+            {
+                show_chatleft.Visible = false;
+                time = 0;
+                timerleft.Stop();
+            }
+        }
+
+        private void timerright_Tick(object sender, EventArgs e)
+        {
+            time += 1;
+            if (time == 3)
+            {
+                show_chatright.Visible = false;
+                time = 0;
+                timerright.Stop();
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ namespace CARO
         private List<List<Button>> matrix;
         private event EventHandler<ChessClickEvent> player_Click;
         private event EventHandler endedGame;
+        private Stack<Point> playTime;
         private Point p;
         private PictureBox player0;
         private PictureBox player1;
@@ -60,6 +61,7 @@ namespace CARO
         public Label Player0_name { get => player0_name; set => player0_name = value; }
         public Label Player1_name { get => player1_name; set => player1_name = value; }
         public int IsBanco { get => isBanco; set => isBanco = value; }
+        public Stack<Point> PlayTime { get => playTime; set => playTime = value; }
 
 
         #endregion
@@ -81,8 +83,10 @@ namespace CARO
             {
                 new Player("Shiba", XX, "x"),
                 new Player("Computer", OO, "o"),
-                new Player("Temp", XX,"t")
+                new Player("Temp", XX,"t"),
+                new Player("Computer", OO, "o")
             };
+            this.PlayTime = new Stack<Point>();
             IsBanco = 0;
             ChangePlayer = 0;
         }
@@ -94,6 +98,7 @@ namespace CARO
         #region Methods
         public void draw_banco()      //vẻ bàn cờ
         {
+            
             if(IsBanco == 0)
             {
                 Button old_btn = new Button()
@@ -141,6 +146,7 @@ namespace CARO
             {
                 foreach (Control x in ChessBoard.Controls)
                 {
+                    //x.Click += danhco;
                     x.BackgroundImage = null;
                     x.BackColor = Color.Transparent;
                     x.Tag = "";
@@ -454,6 +460,8 @@ namespace CARO
                             {
                                 Matrix[ngang[i].X][ngang[i].Y].Tag = "O";
                                 Matrix[ngang[i].X][ngang[i].Y].BackgroundImage = Player[ChangePlayer].Symboy;
+                                Button btn = Matrix[ngang[i].X][ngang[i].Y];
+                                PlayTime.Push(chess_point(btn));
                                 ChangePlayer = ChangePlayer == 1 ? 0 : 1;
                                 if (isEndGame(Matrix[ngang[i].X][ngang[i].Y]))
                                 {
@@ -480,6 +488,8 @@ namespace CARO
                             {
                                 Matrix[doc[i].X][doc[i].Y].Tag = "O";
                                 Matrix[doc[i].X][doc[i].Y].BackgroundImage = Player[ChangePlayer].Symboy;
+                                Button btn = Matrix[doc[i].X][doc[i].Y];
+                                PlayTime.Push(chess_point(btn));
                                 ChangePlayer = ChangePlayer == 1 ? 0 : 1;
                                 if (isEndGame(Matrix[doc[i].X][doc[i].Y]))
                                 {
@@ -507,6 +517,8 @@ namespace CARO
                             {
                                 Matrix[huyen[i].X][huyen[i].Y].Tag = "O";
                                 Matrix[huyen[i].X][huyen[i].Y].BackgroundImage = Player[ChangePlayer].Symboy;
+                                Button btn = Matrix[huyen[i].X][huyen[i].Y];
+                                PlayTime.Push(chess_point(btn));
                                 ChangePlayer = ChangePlayer == 1 ? 0 : 1;
                                 if (isEndGame(Matrix[huyen[i].X][huyen[i].Y]))
                                 {
@@ -534,6 +546,8 @@ namespace CARO
                             {
                                 Matrix[sac[i].X][sac[i].Y].Tag = "O";
                                 Matrix[sac[i].X][sac[i].Y].BackgroundImage = Player[ChangePlayer].Symboy;
+                                Button btn = Matrix[sac[i].X][sac[i].Y];
+                                PlayTime.Push(chess_point(btn));
                                 ChangePlayer = ChangePlayer == 1 ? 0 : 1;
                                 if (isEndGame(Matrix[sac[i].X][sac[i].Y]))
                                 {
@@ -562,6 +576,8 @@ namespace CARO
                         {
                             Matrix[sac[i].X][sac[i].Y].Tag = "O";
                             Matrix[sac[i].X][sac[i].Y].BackgroundImage = Player[ChangePlayer].Symboy;
+                            Button btn = Matrix[sac[i].X][sac[i].Y];
+                            PlayTime.Push(chess_point(btn));
                             ChangePlayer = ChangePlayer == 1 ? 0 : 1;
 
                             if (isEndGame(Matrix[sac[i].X][sac[i].Y]))
@@ -609,8 +625,11 @@ namespace CARO
                 btn.Tag = "O";
             }
 
+            PlayTime.Push(chess_point(btn));
+
             ChangePlayer = ChangePlayer == 0 ? 1 : 0;
-            
+
+           
 
             if (player_Click != null)
             {
@@ -674,7 +693,24 @@ namespace CARO
             Point point = new Point(indX,indY);
             return point;
         }
-        private bool isEndGame(Button btn)
+
+        public void Undo()
+        {
+            if(PlayTime.Count<=0)
+            {
+
+            }
+            else
+            {
+                Point p = PlayTime.Pop();
+                Button btn = Matrix[p.Y][p.X];
+                btn.BackgroundImage = null;
+                btn.Tag = "";
+            }
+            
+            
+        }
+        public bool isEndGame(Button btn)
         {
             Point point = chess_point(btn);
             int countLeft = 0;

@@ -8,3 +8,8 @@ D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.csproj.GenerateResource.cache
 D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.exe
 D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.pdb
 D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.About.resources
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.ListGameSave.resources
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.Rule.resources
+D:\C#\DOANCUOIKI_C_Sharp\CARO\bin\Debug\MySql.Data.dll
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.Rank.resources
+D:\C#\DOANCUOIKI_C_Sharp\CARO\obj\Debug\CARO.csproj.CopyComplete

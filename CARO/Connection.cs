@@ -15,7 +15,7 @@ namespace CARO
     public class Connection
     {
         #region Client
-        Socket client;
+        public Socket client;
         public bool ConnectServe()
         {
             IPEndPoint iep = new IPEndPoint(IPAddress.Parse(IP), PORT);
@@ -35,21 +35,26 @@ namespace CARO
         #endregion
         #region serve
 
-        Socket serve;
+        public Socket serve;
         public void CrateServe()
         {
-            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(IP), PORT);
-            serve = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            serve.Bind(iep);
-            serve.Listen(10);
-
-            Thread acceptClient = new Thread(() =>
+            try
             {
-                client = serve.Accept();
-            });
-            acceptClient.IsBackground = true;
-            acceptClient.Start();
+                IPEndPoint iep = new IPEndPoint(IPAddress.Parse(IP), PORT);
+                serve = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                serve.Bind(iep);
+                serve.Listen(10);
+
+                Thread acceptClient = new Thread(() =>
+                {
+                    client = serve.Accept();
+                });
+                acceptClient.IsBackground = true;
+                acceptClient.Start();
+            }
+            catch { }
+            
         }
         #endregion
         #region Both

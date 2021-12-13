@@ -30,25 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.chessboard_pnl = new System.Windows.Forms.Panel();
-            this.start_pnl = new System.Windows.Forms.Panel();
-            this.star = new System.Windows.Forms.Button();
-            this.ingame = new System.Windows.Forms.TextBox();
-            this.sword_symboy = new System.Windows.Forms.Button();
-            this.shield_symboy = new System.Windows.Forms.Button();
-            this.play_symboy = new System.Windows.Forms.Button();
-            this.pause_symboy = new System.Windows.Forms.Button();
-            this.o_symboy = new System.Windows.Forms.Button();
-            this.x_symboy = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.Option_pnl = new System.Windows.Forms.Panel();
-            this.addRoom_btn = new System.Windows.Forms.Button();
-            this.search_btn = new System.Windows.Forms.Button();
-            this.search_roomid = new System.Windows.Forms.TextBox();
-            this.save_option_btn = new System.Windows.Forms.Button();
-            this.computer = new System.Windows.Forms.Button();
-            this.person = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             this.player0_image = new System.Windows.Forms.PictureBox();
             this.player0_name = new System.Windows.Forms.Label();
             this.player1_name = new System.Windows.Forms.Label();
@@ -73,13 +54,40 @@
             this.ruleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.player0_symboy = new System.Windows.Forms.PictureBox();
             this.player1_symboy = new System.Windows.Forms.PictureBox();
+            this.timer_sever = new System.Windows.Forms.Timer(this.components);
             this.Status_pnl = new System.Windows.Forms.Panel();
+            this.Option_pnl = new System.Windows.Forms.Panel();
+            this.addRoom_btn = new System.Windows.Forms.Button();
+            this.search_btn = new System.Windows.Forms.Button();
+            this.search_roomid = new System.Windows.Forms.TextBox();
+            this.save_option_btn = new System.Windows.Forms.Button();
+            this.computer = new System.Windows.Forms.Button();
+            this.person = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.start_pnl = new System.Windows.Forms.Panel();
+            this.star = new System.Windows.Forms.Button();
+            this.ingame = new System.Windows.Forms.TextBox();
+            this.sword_symboy = new System.Windows.Forms.Button();
+            this.shield_symboy = new System.Windows.Forms.Button();
+            this.play_symboy = new System.Windows.Forms.Button();
+            this.pause_symboy = new System.Windows.Forms.Button();
+            this.o_symboy = new System.Windows.Forms.Button();
+            this.x_symboy = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.update_status = new System.Windows.Forms.Label();
             this.ready = new System.Windows.Forms.Button();
-            this.timer_sever = new System.Windows.Forms.Timer(this.components);
-            this.chessboard_pnl.SuspendLayout();
-            this.start_pnl.SuspendLayout();
-            this.Option_pnl.SuspendLayout();
+            this.Sound = new System.Windows.Forms.Button();
+            this.picture = new System.Windows.Forms.Button();
+            this.Rank = new System.Windows.Forms.Button();
+            this.chat_left = new System.Windows.Forms.Button();
+            this.chat_right = new System.Windows.Forms.Button();
+            this.text_left = new System.Windows.Forms.TextBox();
+            this.text_right = new System.Windows.Forms.TextBox();
+            this.show_chatleft = new System.Windows.Forms.Label();
+            this.show_chatright = new System.Windows.Forms.Label();
+            this.timerleft = new System.Windows.Forms.Timer(this.components);
+            this.timerright = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.player0_image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1_image)).BeginInit();
             this.control_pnl.SuspendLayout();
@@ -87,291 +95,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.player0_symboy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1_symboy)).BeginInit();
             this.Status_pnl.SuspendLayout();
+            this.Option_pnl.SuspendLayout();
+            this.start_pnl.SuspendLayout();
             this.SuspendLayout();
             // 
             // chessboard_pnl
             // 
             this.chessboard_pnl.BackColor = System.Drawing.Color.Transparent;
             this.chessboard_pnl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.chessboard_pnl.Controls.Add(this.Status_pnl);
-            this.chessboard_pnl.Controls.Add(this.start_pnl);
-            this.chessboard_pnl.Controls.Add(this.Option_pnl);
             this.chessboard_pnl.Location = new System.Drawing.Point(304, 12);
             this.chessboard_pnl.Name = "chessboard_pnl";
             this.chessboard_pnl.Size = new System.Drawing.Size(812, 749);
             this.chessboard_pnl.TabIndex = 0;
-            // 
-            // start_pnl
-            // 
-            this.start_pnl.BackColor = System.Drawing.Color.Transparent;
-            this.start_pnl.Controls.Add(this.star);
-            this.start_pnl.Controls.Add(this.ingame);
-            this.start_pnl.Controls.Add(this.sword_symboy);
-            this.start_pnl.Controls.Add(this.shield_symboy);
-            this.start_pnl.Controls.Add(this.play_symboy);
-            this.start_pnl.Controls.Add(this.pause_symboy);
-            this.start_pnl.Controls.Add(this.o_symboy);
-            this.start_pnl.Controls.Add(this.x_symboy);
-            this.start_pnl.Controls.Add(this.label2);
-            this.start_pnl.Controls.Add(this.label1);
-            this.start_pnl.Location = new System.Drawing.Point(62, 115);
-            this.start_pnl.Name = "start_pnl";
-            this.start_pnl.Size = new System.Drawing.Size(689, 522);
-            this.start_pnl.TabIndex = 13;
-            // 
-            // star
-            // 
-            this.star.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.star.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.star.ForeColor = System.Drawing.Color.White;
-            this.star.Location = new System.Drawing.Point(259, 442);
-            this.star.Name = "star";
-            this.star.Size = new System.Drawing.Size(173, 61);
-            this.star.TabIndex = 3;
-            this.star.Text = "Bắt Đầu";
-            this.star.UseVisualStyleBackColor = true;
-            this.star.Click += new System.EventHandler(this.start_game);
-            // 
-            // ingame
-            // 
-            this.ingame.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ingame.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.ingame.Location = new System.Drawing.Point(237, 59);
-            this.ingame.Multiline = true;
-            this.ingame.Name = "ingame";
-            this.ingame.Size = new System.Drawing.Size(212, 34);
-            this.ingame.TabIndex = 2;
-            this.ingame.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // sword_symboy
-            // 
-            this.sword_symboy.BackgroundImage = global::CARO.Properties.Resources.sword;
-            this.sword_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.sword_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.sword_symboy.FlatAppearance.BorderSize = 3;
-            this.sword_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sword_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.sword_symboy.Location = new System.Drawing.Point(448, 190);
-            this.sword_symboy.Name = "sword_symboy";
-            this.sword_symboy.Size = new System.Drawing.Size(106, 96);
-            this.sword_symboy.TabIndex = 1;
-            this.sword_symboy.Tag = "sword";
-            this.sword_symboy.UseVisualStyleBackColor = true;
-            this.sword_symboy.Click += new System.EventHandler(this.Chose_symboy);
-            // 
-            // shield_symboy
-            // 
-            this.shield_symboy.BackgroundImage = global::CARO.Properties.Resources.shield;
-            this.shield_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.shield_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.shield_symboy.FlatAppearance.BorderSize = 3;
-            this.shield_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.shield_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.shield_symboy.Location = new System.Drawing.Point(448, 308);
-            this.shield_symboy.Name = "shield_symboy";
-            this.shield_symboy.Size = new System.Drawing.Size(106, 96);
-            this.shield_symboy.TabIndex = 1;
-            this.shield_symboy.Tag = "shield";
-            this.shield_symboy.UseVisualStyleBackColor = true;
-            this.shield_symboy.Click += new System.EventHandler(this.Chose_symboy);
-            // 
-            // play_symboy
-            // 
-            this.play_symboy.BackgroundImage = global::CARO.Properties.Resources.play;
-            this.play_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.play_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.play_symboy.FlatAppearance.BorderSize = 3;
-            this.play_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.play_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.play_symboy.Location = new System.Drawing.Point(292, 190);
-            this.play_symboy.Name = "play_symboy";
-            this.play_symboy.Size = new System.Drawing.Size(106, 96);
-            this.play_symboy.TabIndex = 1;
-            this.play_symboy.Tag = "play";
-            this.play_symboy.UseVisualStyleBackColor = true;
-            this.play_symboy.Click += new System.EventHandler(this.Chose_symboy);
-            // 
-            // pause_symboy
-            // 
-            this.pause_symboy.BackgroundImage = global::CARO.Properties.Resources.pause;
-            this.pause_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pause_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.pause_symboy.FlatAppearance.BorderSize = 3;
-            this.pause_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pause_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.pause_symboy.Location = new System.Drawing.Point(292, 308);
-            this.pause_symboy.Name = "pause_symboy";
-            this.pause_symboy.Size = new System.Drawing.Size(106, 96);
-            this.pause_symboy.TabIndex = 1;
-            this.pause_symboy.Tag = "pause";
-            this.pause_symboy.UseVisualStyleBackColor = true;
-            this.pause_symboy.Click += new System.EventHandler(this.Chose_symboy);
-            // 
-            // o_symboy
-            // 
-            this.o_symboy.BackgroundImage = global::CARO.Properties.Resources.letter_o;
-            this.o_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.o_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.o_symboy.FlatAppearance.BorderSize = 3;
-            this.o_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.o_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.o_symboy.Location = new System.Drawing.Point(135, 308);
-            this.o_symboy.Name = "o_symboy";
-            this.o_symboy.Size = new System.Drawing.Size(106, 96);
-            this.o_symboy.TabIndex = 1;
-            this.o_symboy.Tag = "o";
-            this.o_symboy.UseVisualStyleBackColor = true;
-            this.o_symboy.Click += new System.EventHandler(this.Chose_symboy);
-            // 
-            // x_symboy
-            // 
-            this.x_symboy.BackgroundImage = global::CARO.Properties.Resources.x1;
-            this.x_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.x_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.x_symboy.FlatAppearance.BorderSize = 3;
-            this.x_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.x_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.x_symboy.Location = new System.Drawing.Point(135, 190);
-            this.x_symboy.Name = "x_symboy";
-            this.x_symboy.Size = new System.Drawing.Size(106, 96);
-            this.x_symboy.TabIndex = 1;
-            this.x_symboy.Tag = "x";
-            this.x_symboy.UseVisualStyleBackColor = true;
-            this.x_symboy.Click += new System.EventHandler(this.Chose_symboy);
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(238, 119);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(212, 43);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Chọn Kí Hiệu";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(165, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 32);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Tên";
-            // 
-            // Option_pnl
-            // 
-            this.Option_pnl.BackColor = System.Drawing.Color.Transparent;
-            this.Option_pnl.Controls.Add(this.addRoom_btn);
-            this.Option_pnl.Controls.Add(this.search_btn);
-            this.Option_pnl.Controls.Add(this.search_roomid);
-            this.Option_pnl.Controls.Add(this.save_option_btn);
-            this.Option_pnl.Controls.Add(this.computer);
-            this.Option_pnl.Controls.Add(this.person);
-            this.Option_pnl.Controls.Add(this.label8);
-            this.Option_pnl.Location = new System.Drawing.Point(121, 202);
-            this.Option_pnl.Name = "Option_pnl";
-            this.Option_pnl.Size = new System.Drawing.Size(576, 300);
-            this.Option_pnl.TabIndex = 1;
-            // 
-            // addRoom_btn
-            // 
-            this.addRoom_btn.BackColor = System.Drawing.Color.DarkOrange;
-            this.addRoom_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addRoom_btn.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.addRoom_btn.ForeColor = System.Drawing.Color.White;
-            this.addRoom_btn.Location = new System.Drawing.Point(215, 220);
-            this.addRoom_btn.Name = "addRoom_btn";
-            this.addRoom_btn.Size = new System.Drawing.Size(149, 39);
-            this.addRoom_btn.TabIndex = 7;
-            this.addRoom_btn.Text = "Tạo Phòng";
-            this.addRoom_btn.UseVisualStyleBackColor = false;
-            this.addRoom_btn.Visible = false;
-            this.addRoom_btn.Click += new System.EventHandler(this.addRoom_btn_Click);
-            // 
-            // search_btn
-            // 
-            this.search_btn.BackgroundImage = global::CARO.Properties.Resources.search1;
-            this.search_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.search_btn.FlatAppearance.BorderSize = 0;
-            this.search_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.search_btn.Location = new System.Drawing.Point(142, 162);
-            this.search_btn.Name = "search_btn";
-            this.search_btn.Size = new System.Drawing.Size(56, 50);
-            this.search_btn.TabIndex = 6;
-            this.search_btn.UseVisualStyleBackColor = true;
-            this.search_btn.Visible = false;
-            this.search_btn.Click += new System.EventHandler(this.search_button_Click);
-            // 
-            // search_roomid
-            // 
-            this.search_roomid.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.search_roomid.Location = new System.Drawing.Point(204, 172);
-            this.search_roomid.Multiline = true;
-            this.search_roomid.Name = "search_roomid";
-            this.search_roomid.Size = new System.Drawing.Size(169, 27);
-            this.search_roomid.TabIndex = 5;
-            this.search_roomid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.search_roomid.Visible = false;
-            this.search_roomid.TextChanged += new System.EventHandler(this.search_roomid_TextChanged);
-            this.search_roomid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.search_roomid_KeyDown);
-            // 
-            // save_option_btn
-            // 
-            this.save_option_btn.BackColor = System.Drawing.Color.White;
-            this.save_option_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.save_option_btn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.save_option_btn.Location = new System.Drawing.Point(215, 221);
-            this.save_option_btn.Name = "save_option_btn";
-            this.save_option_btn.Size = new System.Drawing.Size(149, 38);
-            this.save_option_btn.TabIndex = 3;
-            this.save_option_btn.Text = "OK";
-            this.save_option_btn.UseVisualStyleBackColor = false;
-            this.save_option_btn.Click += new System.EventHandler(this.save_option_btn_Click);
-            // 
-            // computer
-            // 
-            this.computer.BackColor = System.Drawing.Color.LimeGreen;
-            this.computer.FlatAppearance.BorderSize = 2;
-            this.computer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.computer.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.computer.Location = new System.Drawing.Point(306, 88);
-            this.computer.Name = "computer";
-            this.computer.Size = new System.Drawing.Size(199, 43);
-            this.computer.TabIndex = 1;
-            this.computer.Text = "Đánh với máy";
-            this.computer.UseVisualStyleBackColor = false;
-            this.computer.Click += new System.EventHandler(this.regime_chose);
-            // 
-            // person
-            // 
-            this.person.BackColor = System.Drawing.Color.White;
-            this.person.FlatAppearance.BorderSize = 2;
-            this.person.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.person.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.person.ForeColor = System.Drawing.Color.Black;
-            this.person.Location = new System.Drawing.Point(71, 88);
-            this.person.Name = "person";
-            this.person.Size = new System.Drawing.Size(199, 43);
-            this.person.TabIndex = 1;
-            this.person.Text = "Đánh với người";
-            this.person.UseVisualStyleBackColor = false;
-            this.person.Click += new System.EventHandler(this.regime_chose);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label8.ForeColor = System.Drawing.Color.Gold;
-            this.label8.Location = new System.Drawing.Point(200, 9);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(171, 59);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Chế Độ";
+            this.chessboard_pnl.Visible = false;
             // 
             // player0_image
             // 
@@ -478,7 +214,7 @@
             // 
             // player1_image
             // 
-            this.player1_image.Image = global::CARO.Properties.Resources.gia_cho_shiba_2;
+            this.player1_image.Image = global::CARO.Properties.Resources.cat;
             this.player1_image.Location = new System.Drawing.Point(1198, 181);
             this.player1_image.Name = "player1_image";
             this.player1_image.Size = new System.Drawing.Size(138, 127);
@@ -493,10 +229,11 @@
             this.control_pnl.Controls.Add(this.rule_btn);
             this.control_pnl.Controls.Add(this.undo_btn);
             this.control_pnl.Controls.Add(this.option_btn);
-            this.control_pnl.Location = new System.Drawing.Point(530, 768);
+            this.control_pnl.Location = new System.Drawing.Point(531, 767);
             this.control_pnl.Name = "control_pnl";
-            this.control_pnl.Size = new System.Drawing.Size(366, 73);
+            this.control_pnl.Size = new System.Drawing.Size(360, 73);
             this.control_pnl.TabIndex = 11;
+            this.control_pnl.Paint += new System.Windows.Forms.PaintEventHandler(this.control_pnl_Paint);
             // 
             // rule_btn
             // 
@@ -512,6 +249,7 @@
             this.rule_btn.Size = new System.Drawing.Size(63, 50);
             this.rule_btn.TabIndex = 2;
             this.rule_btn.UseVisualStyleBackColor = false;
+            this.rule_btn.Click += new System.EventHandler(this.rule_btn_Click);
             // 
             // undo_btn
             // 
@@ -520,7 +258,7 @@
             this.undo_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.undo_btn.FlatAppearance.BorderSize = 0;
             this.undo_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.undo_btn.Location = new System.Drawing.Point(23, 16);
+            this.undo_btn.Location = new System.Drawing.Point(24, 16);
             this.undo_btn.Name = "undo_btn";
             this.undo_btn.Size = new System.Drawing.Size(64, 50);
             this.undo_btn.TabIndex = 3;
@@ -567,6 +305,7 @@
             // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
@@ -575,6 +314,7 @@
             // 
             // openToolStripMenuItem
             // 
+            this.openToolStripMenuItem.Enabled = false;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(198, 28);
@@ -634,25 +374,304 @@
             this.player1_symboy.TabStop = false;
             this.player1_symboy.Visible = false;
             // 
+            // timer_sever
+            // 
+            this.timer_sever.Interval = 2000;
+            this.timer_sever.Tick += new System.EventHandler(this.timer_sever_Tick);
+            // 
             // Status_pnl
             // 
+            this.Status_pnl.BackColor = System.Drawing.Color.Transparent;
+            this.Status_pnl.Controls.Add(this.Option_pnl);
+            this.Status_pnl.Controls.Add(this.start_pnl);
             this.Status_pnl.Controls.Add(this.update_status);
             this.Status_pnl.Controls.Add(this.ready);
-            this.Status_pnl.Location = new System.Drawing.Point(62, 54);
+            this.Status_pnl.Location = new System.Drawing.Point(286, 12);
             this.Status_pnl.Name = "Status_pnl";
-            this.Status_pnl.Size = new System.Drawing.Size(689, 664);
+            this.Status_pnl.Size = new System.Drawing.Size(848, 750);
             this.Status_pnl.TabIndex = 14;
-            this.Status_pnl.Visible = false;
+            this.Status_pnl.VisibleChanged += new System.EventHandler(this.Status_pnl_VisibleChanged);
+            // 
+            // Option_pnl
+            // 
+            this.Option_pnl.Controls.Add(this.addRoom_btn);
+            this.Option_pnl.Controls.Add(this.search_btn);
+            this.Option_pnl.Controls.Add(this.search_roomid);
+            this.Option_pnl.Controls.Add(this.save_option_btn);
+            this.Option_pnl.Controls.Add(this.computer);
+            this.Option_pnl.Controls.Add(this.person);
+            this.Option_pnl.Controls.Add(this.label8);
+            this.Option_pnl.Location = new System.Drawing.Point(73, 92);
+            this.Option_pnl.Name = "Option_pnl";
+            this.Option_pnl.Size = new System.Drawing.Size(699, 599);
+            this.Option_pnl.TabIndex = 9;
+            this.Option_pnl.Visible = false;
+            // 
+            // addRoom_btn
+            // 
+            this.addRoom_btn.BackColor = System.Drawing.Color.DarkOrange;
+            this.addRoom_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addRoom_btn.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.addRoom_btn.ForeColor = System.Drawing.Color.White;
+            this.addRoom_btn.Location = new System.Drawing.Point(281, 339);
+            this.addRoom_btn.Name = "addRoom_btn";
+            this.addRoom_btn.Size = new System.Drawing.Size(149, 39);
+            this.addRoom_btn.TabIndex = 14;
+            this.addRoom_btn.Text = "Tạo Phòng";
+            this.addRoom_btn.UseVisualStyleBackColor = false;
+            this.addRoom_btn.Visible = false;
+            this.addRoom_btn.Click += new System.EventHandler(this.addRoom_btn_Click);
+            // 
+            // search_btn
+            // 
+            this.search_btn.BackgroundImage = global::CARO.Properties.Resources.search1;
+            this.search_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.search_btn.FlatAppearance.BorderSize = 0;
+            this.search_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.search_btn.Location = new System.Drawing.Point(208, 280);
+            this.search_btn.Name = "search_btn";
+            this.search_btn.Size = new System.Drawing.Size(56, 50);
+            this.search_btn.TabIndex = 13;
+            this.search_btn.UseVisualStyleBackColor = true;
+            this.search_btn.Visible = false;
+            this.search_btn.Click += new System.EventHandler(this.search_button_Click);
+            // 
+            // search_roomid
+            // 
+            this.search_roomid.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.search_roomid.Location = new System.Drawing.Point(270, 290);
+            this.search_roomid.Multiline = true;
+            this.search_roomid.Name = "search_roomid";
+            this.search_roomid.Size = new System.Drawing.Size(169, 27);
+            this.search_roomid.TabIndex = 12;
+            this.search_roomid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.search_roomid.Visible = false;
+            this.search_roomid.TextChanged += new System.EventHandler(this.search_roomid_TextChanged);
+            this.search_roomid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.search_roomid_KeyDown);
+            // 
+            // save_option_btn
+            // 
+            this.save_option_btn.BackColor = System.Drawing.Color.White;
+            this.save_option_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.save_option_btn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.save_option_btn.Location = new System.Drawing.Point(281, 339);
+            this.save_option_btn.Name = "save_option_btn";
+            this.save_option_btn.Size = new System.Drawing.Size(149, 38);
+            this.save_option_btn.TabIndex = 11;
+            this.save_option_btn.Text = "OK";
+            this.save_option_btn.UseVisualStyleBackColor = false;
+            this.save_option_btn.Click += new System.EventHandler(this.save_option_btn_Click);
+            // 
+            // computer
+            // 
+            this.computer.BackColor = System.Drawing.Color.LimeGreen;
+            this.computer.FlatAppearance.BorderSize = 2;
+            this.computer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.computer.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.computer.Location = new System.Drawing.Point(372, 206);
+            this.computer.Name = "computer";
+            this.computer.Size = new System.Drawing.Size(199, 43);
+            this.computer.TabIndex = 9;
+            this.computer.Text = "Đánh với máy";
+            this.computer.UseVisualStyleBackColor = false;
+            this.computer.Click += new System.EventHandler(this.regime_chose);
+            // 
+            // person
+            // 
+            this.person.BackColor = System.Drawing.Color.White;
+            this.person.FlatAppearance.BorderSize = 2;
+            this.person.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.person.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.person.ForeColor = System.Drawing.Color.Black;
+            this.person.Location = new System.Drawing.Point(137, 206);
+            this.person.Name = "person";
+            this.person.Size = new System.Drawing.Size(199, 43);
+            this.person.TabIndex = 10;
+            this.person.Text = "Đánh với người";
+            this.person.UseVisualStyleBackColor = false;
+            this.person.Click += new System.EventHandler(this.regime_chose);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label8.ForeColor = System.Drawing.Color.Gold;
+            this.label8.Location = new System.Drawing.Point(266, 127);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(171, 59);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Chế Độ";
+            // 
+            // start_pnl
+            // 
+            this.start_pnl.Controls.Add(this.star);
+            this.start_pnl.Controls.Add(this.ingame);
+            this.start_pnl.Controls.Add(this.sword_symboy);
+            this.start_pnl.Controls.Add(this.shield_symboy);
+            this.start_pnl.Controls.Add(this.play_symboy);
+            this.start_pnl.Controls.Add(this.pause_symboy);
+            this.start_pnl.Controls.Add(this.o_symboy);
+            this.start_pnl.Controls.Add(this.x_symboy);
+            this.start_pnl.Controls.Add(this.label2);
+            this.start_pnl.Controls.Add(this.label1);
+            this.start_pnl.Location = new System.Drawing.Point(73, 92);
+            this.start_pnl.Name = "start_pnl";
+            this.start_pnl.Size = new System.Drawing.Size(699, 500);
+            this.start_pnl.TabIndex = 8;
+            // 
+            // star
+            // 
+            this.star.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.star.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.star.ForeColor = System.Drawing.Color.White;
+            this.star.Location = new System.Drawing.Point(266, 406);
+            this.star.Name = "star";
+            this.star.Size = new System.Drawing.Size(173, 61);
+            this.star.TabIndex = 13;
+            this.star.Text = "Bắt Đầu";
+            this.star.UseVisualStyleBackColor = true;
+            this.star.Click += new System.EventHandler(this.start_game);
+            // 
+            // ingame
+            // 
+            this.ingame.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ingame.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.ingame.Location = new System.Drawing.Point(244, 23);
+            this.ingame.Multiline = true;
+            this.ingame.Name = "ingame";
+            this.ingame.Size = new System.Drawing.Size(212, 34);
+            this.ingame.TabIndex = 12;
+            this.ingame.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // sword_symboy
+            // 
+            this.sword_symboy.BackgroundImage = global::CARO.Properties.Resources.sword;
+            this.sword_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.sword_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.sword_symboy.FlatAppearance.BorderSize = 3;
+            this.sword_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sword_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.sword_symboy.Location = new System.Drawing.Point(455, 154);
+            this.sword_symboy.Name = "sword_symboy";
+            this.sword_symboy.Size = new System.Drawing.Size(106, 96);
+            this.sword_symboy.TabIndex = 6;
+            this.sword_symboy.Tag = "sword";
+            this.sword_symboy.UseVisualStyleBackColor = true;
+            this.sword_symboy.Click += new System.EventHandler(this.Chose_symboy);
+            // 
+            // shield_symboy
+            // 
+            this.shield_symboy.BackgroundImage = global::CARO.Properties.Resources.shield;
+            this.shield_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.shield_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.shield_symboy.FlatAppearance.BorderSize = 3;
+            this.shield_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.shield_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.shield_symboy.Location = new System.Drawing.Point(455, 272);
+            this.shield_symboy.Name = "shield_symboy";
+            this.shield_symboy.Size = new System.Drawing.Size(106, 96);
+            this.shield_symboy.TabIndex = 7;
+            this.shield_symboy.Tag = "shield";
+            this.shield_symboy.UseVisualStyleBackColor = true;
+            this.shield_symboy.Click += new System.EventHandler(this.Chose_symboy);
+            // 
+            // play_symboy
+            // 
+            this.play_symboy.BackgroundImage = global::CARO.Properties.Resources.play;
+            this.play_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.play_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.play_symboy.FlatAppearance.BorderSize = 3;
+            this.play_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.play_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.play_symboy.Location = new System.Drawing.Point(299, 154);
+            this.play_symboy.Name = "play_symboy";
+            this.play_symboy.Size = new System.Drawing.Size(106, 96);
+            this.play_symboy.TabIndex = 8;
+            this.play_symboy.Tag = "play";
+            this.play_symboy.UseVisualStyleBackColor = true;
+            this.play_symboy.Click += new System.EventHandler(this.Chose_symboy);
+            // 
+            // pause_symboy
+            // 
+            this.pause_symboy.BackgroundImage = global::CARO.Properties.Resources.pause;
+            this.pause_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pause_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.pause_symboy.FlatAppearance.BorderSize = 3;
+            this.pause_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.pause_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.pause_symboy.Location = new System.Drawing.Point(299, 272);
+            this.pause_symboy.Name = "pause_symboy";
+            this.pause_symboy.Size = new System.Drawing.Size(106, 96);
+            this.pause_symboy.TabIndex = 9;
+            this.pause_symboy.Tag = "pause";
+            this.pause_symboy.UseVisualStyleBackColor = true;
+            this.pause_symboy.Click += new System.EventHandler(this.Chose_symboy);
+            // 
+            // o_symboy
+            // 
+            this.o_symboy.BackgroundImage = global::CARO.Properties.Resources.letter_o;
+            this.o_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.o_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.o_symboy.FlatAppearance.BorderSize = 3;
+            this.o_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.o_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.o_symboy.Location = new System.Drawing.Point(142, 272);
+            this.o_symboy.Name = "o_symboy";
+            this.o_symboy.Size = new System.Drawing.Size(106, 96);
+            this.o_symboy.TabIndex = 10;
+            this.o_symboy.Tag = "o";
+            this.o_symboy.UseVisualStyleBackColor = true;
+            this.o_symboy.Click += new System.EventHandler(this.Chose_symboy);
+            // 
+            // x_symboy
+            // 
+            this.x_symboy.BackgroundImage = global::CARO.Properties.Resources.x1;
+            this.x_symboy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.x_symboy.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.x_symboy.FlatAppearance.BorderSize = 3;
+            this.x_symboy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.x_symboy.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.x_symboy.Location = new System.Drawing.Point(142, 154);
+            this.x_symboy.Name = "x_symboy";
+            this.x_symboy.Size = new System.Drawing.Size(106, 96);
+            this.x_symboy.TabIndex = 11;
+            this.x_symboy.Tag = "x";
+            this.x_symboy.UseVisualStyleBackColor = true;
+            this.x_symboy.Click += new System.EventHandler(this.Chose_symboy);
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(245, 83);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(212, 43);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Chọn Kí Hiệu";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(172, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 32);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Tên";
             // 
             // update_status
             // 
             this.update_status.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.update_status.ForeColor = System.Drawing.Color.Red;
-            this.update_status.Location = new System.Drawing.Point(156, 173);
+            this.update_status.Location = new System.Drawing.Point(239, 223);
             this.update_status.Name = "update_status";
             this.update_status.Size = new System.Drawing.Size(375, 39);
-            this.update_status.TabIndex = 5;
-            this.update_status.Text = "Đang chờ đối thủ...";
+            this.update_status.TabIndex = 7;
+            this.update_status.Text = "Máy đã sẵn sàng...";
             this.update_status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.update_status.TextChanged += new System.EventHandler(this.update_status_TextChanged);
             // 
@@ -662,18 +681,141 @@
             this.ready.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ready.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.ready.ForeColor = System.Drawing.Color.White;
-            this.ready.Location = new System.Drawing.Point(244, 246);
+            this.ready.Location = new System.Drawing.Point(327, 296);
             this.ready.Name = "ready";
             this.ready.Size = new System.Drawing.Size(196, 68);
-            this.ready.TabIndex = 4;
+            this.ready.TabIndex = 6;
             this.ready.Text = "Bắt Đầu";
             this.ready.UseVisualStyleBackColor = true;
             this.ready.Click += new System.EventHandler(this.ready_Click);
             // 
-            // timer_sever
+            // Sound
             // 
-            this.timer_sever.Interval = 2000;
-            this.timer_sever.Tick += new System.EventHandler(this.timer_sever_Tick);
+            this.Sound.BackColor = System.Drawing.Color.Transparent;
+            this.Sound.BackgroundImage = global::CARO.Properties.Resources.audio_speaker;
+            this.Sound.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Sound.FlatAppearance.BorderSize = 0;
+            this.Sound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Sound.Location = new System.Drawing.Point(23, 789);
+            this.Sound.Name = "Sound";
+            this.Sound.Size = new System.Drawing.Size(55, 51);
+            this.Sound.TabIndex = 15;
+            this.Sound.UseVisualStyleBackColor = false;
+            this.Sound.Click += new System.EventHandler(this.Sound_Click);
+            // 
+            // picture
+            // 
+            this.picture.BackColor = System.Drawing.Color.Transparent;
+            this.picture.BackgroundImage = global::CARO.Properties.Resources.image;
+            this.picture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picture.FlatAppearance.BorderSize = 0;
+            this.picture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.picture.Location = new System.Drawing.Point(99, 785);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(75, 58);
+            this.picture.TabIndex = 16;
+            this.picture.UseVisualStyleBackColor = false;
+            this.picture.Click += new System.EventHandler(this.picture_Click);
+            // 
+            // Rank
+            // 
+            this.Rank.BackColor = System.Drawing.Color.Transparent;
+            this.Rank.BackgroundImage = global::CARO.Properties.Resources.star1;
+            this.Rank.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Rank.FlatAppearance.BorderSize = 0;
+            this.Rank.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Rank.Location = new System.Drawing.Point(183, 785);
+            this.Rank.Name = "Rank";
+            this.Rank.Size = new System.Drawing.Size(75, 58);
+            this.Rank.TabIndex = 16;
+            this.Rank.UseVisualStyleBackColor = false;
+            this.Rank.Click += new System.EventHandler(this.Rank_Click);
+            // 
+            // chat_left
+            // 
+            this.chat_left.BackColor = System.Drawing.Color.Transparent;
+            this.chat_left.BackgroundImage = global::CARO.Properties.Resources.chat;
+            this.chat_left.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.chat_left.FlatAppearance.BorderSize = 0;
+            this.chat_left.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chat_left.Location = new System.Drawing.Point(227, 276);
+            this.chat_left.Name = "chat_left";
+            this.chat_left.Size = new System.Drawing.Size(44, 32);
+            this.chat_left.TabIndex = 17;
+            this.chat_left.UseVisualStyleBackColor = false;
+            this.chat_left.Visible = false;
+            this.chat_left.Click += new System.EventHandler(this.chat_left_Click);
+            // 
+            // chat_right
+            // 
+            this.chat_right.BackColor = System.Drawing.Color.Transparent;
+            this.chat_right.BackgroundImage = global::CARO.Properties.Resources.chat;
+            this.chat_right.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.chat_right.FlatAppearance.BorderSize = 0;
+            this.chat_right.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chat_right.Location = new System.Drawing.Point(1340, 276);
+            this.chat_right.Name = "chat_right";
+            this.chat_right.Size = new System.Drawing.Size(44, 32);
+            this.chat_right.TabIndex = 17;
+            this.chat_right.UseVisualStyleBackColor = false;
+            this.chat_right.Visible = false;
+            this.chat_right.Click += new System.EventHandler(this.chat_right_Click);
+            // 
+            // text_left
+            // 
+            this.text_left.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.text_left.Location = new System.Drawing.Point(118, 115);
+            this.text_left.Multiline = true;
+            this.text_left.Name = "text_left";
+            this.text_left.Size = new System.Drawing.Size(202, 60);
+            this.text_left.TabIndex = 0;
+            this.text_left.Visible = false;
+            this.text_left.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_left_KeyDown);
+            // 
+            // text_right
+            // 
+            this.text_right.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.text_right.Location = new System.Drawing.Point(1116, 115);
+            this.text_right.Multiline = true;
+            this.text_right.Name = "text_right";
+            this.text_right.Size = new System.Drawing.Size(202, 61);
+            this.text_right.TabIndex = 0;
+            this.text_right.Visible = false;
+            this.text_right.KeyDown += new System.Windows.Forms.KeyEventHandler(this.text_right_KeyDown);
+            // 
+            // show_chatleft
+            // 
+            this.show_chatleft.AutoSize = true;
+            this.show_chatleft.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.show_chatleft.Location = new System.Drawing.Point(228, 195);
+            this.show_chatleft.Name = "show_chatleft";
+            this.show_chatleft.Size = new System.Drawing.Size(73, 23);
+            this.show_chatleft.TabIndex = 18;
+            this.show_chatleft.Text = "chat left";
+            this.show_chatleft.Visible = false;
+            // 
+            // show_chatright
+            // 
+            this.show_chatright.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.show_chatright.AutoSize = true;
+            this.show_chatright.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.show_chatright.Location = new System.Drawing.Point(1119, 195);
+            this.show_chatright.Name = "show_chatright";
+            this.show_chatright.Size = new System.Drawing.Size(73, 23);
+            this.show_chatright.TabIndex = 18;
+            this.show_chatright.Text = "chat left";
+            this.show_chatright.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.show_chatright.Visible = false;
+            // 
+            // timerleft
+            // 
+            this.timerleft.Interval = 1000;
+            this.timerleft.Tick += new System.EventHandler(this.timerleft_Tick);
+            // 
+            // timerright
+            // 
+            this.timerright.Interval = 1000;
+            this.timerright.Tick += new System.EventHandler(this.timerright_Tick);
             // 
             // CaroDisplay
             // 
@@ -682,6 +824,16 @@
             this.BackgroundImage = global::CARO.Properties.Resources.hinhnen2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1419, 853);
+            this.Controls.Add(this.text_right);
+            this.Controls.Add(this.text_left);
+            this.Controls.Add(this.show_chatright);
+            this.Controls.Add(this.show_chatleft);
+            this.Controls.Add(this.chat_right);
+            this.Controls.Add(this.chat_left);
+            this.Controls.Add(this.Rank);
+            this.Controls.Add(this.picture);
+            this.Controls.Add(this.Sound);
+            this.Controls.Add(this.Status_pnl);
             this.Controls.Add(this.player1_symboy);
             this.Controls.Add(this.player0_symboy);
             this.Controls.Add(this.control_pnl);
@@ -698,6 +850,7 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1437, 900);
             this.Name = "CaroDisplay";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -706,11 +859,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.close_game);
             this.Load += new System.EventHandler(this.CaroDisplay_Load);
             this.Shown += new System.EventHandler(this.CaroDisplay_Shown);
-            this.chessboard_pnl.ResumeLayout(false);
-            this.start_pnl.ResumeLayout(false);
-            this.start_pnl.PerformLayout();
-            this.Option_pnl.ResumeLayout(false);
-            this.Option_pnl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.player0_image)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1_image)).EndInit();
             this.control_pnl.ResumeLayout(false);
@@ -719,32 +867,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.player0_symboy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.player1_symboy)).EndInit();
             this.Status_pnl.ResumeLayout(false);
+            this.Option_pnl.ResumeLayout(false);
+            this.Option_pnl.PerformLayout();
+            this.start_pnl.ResumeLayout(false);
+            this.start_pnl.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel chessboard_pnl;
         private System.Windows.Forms.PictureBox player0_image;
         private System.Windows.Forms.Label player0_name;
         private System.Windows.Forms.Label player1_name;
-        private System.Windows.Forms.ProgressBar progressBar_left;
-        private System.Windows.Forms.ProgressBar progressBar_right;
-        private System.Windows.Forms.Timer timer_play;
         private System.Windows.Forms.Button out_room_btn;
-        private System.Windows.Forms.Panel Option_pnl;
-        private System.Windows.Forms.Button computer;
-        private System.Windows.Forms.Button person;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button save_option_btn;
         private System.Windows.Forms.Label label_maphong;
         private System.Windows.Forms.Label maphong;
         private System.Windows.Forms.PictureBox player1_image;
-        private System.Windows.Forms.Button search_btn;
-        private System.Windows.Forms.TextBox search_roomid;
-        private System.Windows.Forms.Button addRoom_btn;
         private System.Windows.Forms.Panel control_pnl;
         private System.Windows.Forms.Button rule_btn;
         private System.Windows.Forms.Button undo_btn;
@@ -757,7 +896,20 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem ruleToolStripMenuItem;
+        private System.Windows.Forms.PictureBox player0_symboy;
+        private System.Windows.Forms.PictureBox player1_symboy;
+        private System.Windows.Forms.Timer timer_sever;
+        private System.Windows.Forms.Panel Status_pnl;
+        private System.Windows.Forms.Panel Option_pnl;
+        private System.Windows.Forms.Button addRoom_btn;
+        private System.Windows.Forms.Button search_btn;
+        private System.Windows.Forms.TextBox search_roomid;
+        private System.Windows.Forms.Button save_option_btn;
+        private System.Windows.Forms.Button computer;
+        private System.Windows.Forms.Button person;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel start_pnl;
+        private System.Windows.Forms.Button star;
         private System.Windows.Forms.TextBox ingame;
         private System.Windows.Forms.Button sword_symboy;
         private System.Windows.Forms.Button shield_symboy;
@@ -767,13 +919,23 @@
         private System.Windows.Forms.Button x_symboy;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button star;
-        private System.Windows.Forms.PictureBox player0_symboy;
-        private System.Windows.Forms.PictureBox player1_symboy;
-        private System.Windows.Forms.Panel Status_pnl;
         private System.Windows.Forms.Label update_status;
         private System.Windows.Forms.Button ready;
-        private System.Windows.Forms.Timer timer_sever;
+        private System.Windows.Forms.Button Sound;
+        private System.Windows.Forms.Button picture;
+        public System.Windows.Forms.Panel chessboard_pnl;
+        public System.Windows.Forms.ProgressBar progressBar_left;
+        public System.Windows.Forms.ProgressBar progressBar_right;
+        public System.Windows.Forms.Timer timer_play;
+        private System.Windows.Forms.Button Rank;
+        private System.Windows.Forms.Button chat_left;
+        private System.Windows.Forms.TextBox text_left;
+        private System.Windows.Forms.TextBox text_right;
+        private System.Windows.Forms.Button chat_right;
+        private System.Windows.Forms.Label show_chatleft;
+        private System.Windows.Forms.Label show_chatright;
+        public System.Windows.Forms.Timer timerleft;
+        public System.Windows.Forms.Timer timerright;
     }
 }
 
