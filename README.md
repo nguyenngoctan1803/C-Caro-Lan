@@ -1,4 +1,3 @@
-# C-Caro-Lan
 TRÝ?NG Ð?I H?C CÔNG NGH? THÔNG TIN
 Ð?I H?C QU?C GIA THÀNH PH? H? CHÍ MINH
 -----***-----
@@ -129,5 +128,13 @@ Link project: https://github.com/nguyenngoctan1803/C-Caro-Lan
 -----------H?T-----------
 
 i
+
+
+15
+
+
+
+
+1
 
 
